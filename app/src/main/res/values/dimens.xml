@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="global_margin_top">24dp</dimen>
+    <dimen name="global_margin_bottom">24dp</dimen>
+    <dimen name="global_margin_start">24dp</dimen>
+    <dimen name="global_margin_end">24dp</dimen>
+    <dimen name="global_margin">24dp</dimen>
+
+    <dimen name="min_margin">8dp</dimen>
+    <dimen name="min_margin_top">8dp</dimen>
+    <dimen name="min_margin_bottom">8dp</dimen>
+    <dimen name="min_margin_start">8dp</dimen>
+    <dimen name="min_margin_end">8dp</dimen>
+
+    <!--genaral spacing-->
+    <dimen name="spacing_xsmall">2dp</dimen>
+    <dimen name="spacing_small">3dp</dimen>
+    <dimen name="spacing_medium">5dp</dimen>
+    <dimen name="spacing_xmedium">7dp</dimen>
+    <dimen name="spacing_middle">10dp</dimen>
+    <dimen name="spacing_large">15dp</dimen>
+    <dimen name="spacing_smlarge">18dp</dimen>
+    <dimen name="spacing_mlarge">20dp</dimen>
+    <dimen name="spacing_mxlarge">25dp</dimen>
+    <dimen name="spacing_xlarge">35dp</dimen>
+    <dimen name="spacing_xmlarge">40dp</dimen>
+    <dimen name="spacing_xxlarge">50dp</dimen>
+    <dimen name="spacing_xxxlarge">55dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
+
+    <dimen name="button_radius" format="float">8dp</dimen>
+
+    <!-- Text sizes -->
+    <dimen name="small_text_size" format="float">14sp</dimen>
+    <dimen name="regular_text_size" format="float">16sp</dimen>
+    <dimen name="large_text_size" format="float">20sp</dimen>
+
+    <dimen name="small_text_size_fixed" format="float">14dp</dimen>
+    <dimen name="regular_text_size_fixed" format="float">16dp</dimen>
+    <dimen name="large_text_size_fixed" format="float">20dp</dimen>
+
+
+</resources>

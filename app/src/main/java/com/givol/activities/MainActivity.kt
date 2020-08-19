@@ -1,13 +1,15 @@
-package com.givol
+package com.givol.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.givol.R
+import com.givol.core.GivolActivity
+import timber.log.Timber
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : GivolActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Mark test
+        Timber.i("Test")
     }
 }

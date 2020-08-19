@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Givol</string>
+
+    <!-- Actions -->
+    <string name="action_drawer" translatable="false">תפריט</string>
+    <string name="action_cancel" translatable="false">סגור</string>
+    <string name="action_back" translatable="false">חזרה</string>
+    <string name="info">info</string>
+
+    <!-- Error messages -->
+    <string name="internet_failure_error">בעיית חיבור לרשת</string>
+    <string name="error_general">אופס! יש לנו תקלה…</string>
+    <string name="error_general_subtitle">אנא נסה שוב מאוחר יותר</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_success_default_title" translatable="false">הצלחה!</string>
+    <string name="dialog_positive_ok" translatable="false">אוקיי</string>
+    <string name="dialog_negative_cancel" translatable="false">ביטול</string>
+
 </resources>
