@@ -17,4 +17,9 @@
     <string name="dialog_positive_ok" translatable="false">אוקיי</string>
     <string name="dialog_negative_cancel" translatable="false">ביטול</string>
 
+    <!-- SignIn screen -->
+    <string name="sign_in">Sign in</string>
+    <string name="sign_in_user_name">Username</string>
+    <string name="sign_in_password">Password</string>
+
 </resources>

@@ -11,6 +11,7 @@ import com.givol.navigation.Arguments
 import com.givol.navigation.Screen
 import com.givol.navigation.arguments.TransferInfo
 import com.givol.screens.MainScreen
+import com.givol.screens.SignInScreen
 import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -38,7 +39,7 @@ class GivolApplication : Application() {
 
         Timber.plant(Timber.DebugTree())
 
-        FirebaseAuth.getInstance().setLanguageCode("He")
+        //FirebaseAuth.getInstance().setLanguageCode("He")
 
         registerFragmentArguments()
         registerScreens()
@@ -51,6 +52,7 @@ class GivolApplication : Application() {
 
     private fun registerScreens() {
         Screen.registerSubclass(MainScreen::class.java)
+        Screen.registerSubclass(SignInScreen::class.java)
     }
 
     companion object {

@@ -99,6 +99,9 @@ dependencies {
 
     //Bolts
     implementation 'com.parse.bolts:bolts-android:1.4.0'
+
+    //Intuit screen dp scaling
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
 }
 
 repositories {
