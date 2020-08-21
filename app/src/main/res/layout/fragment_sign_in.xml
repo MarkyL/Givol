@@ -32,7 +32,12 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/segoe_ui_regular"
             android:hint="@string/sign_in_user_name"
-            android:textCursorDrawable="@drawable/color_cursor" />
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:imeOptions="actionNext"
+            android:nextFocusDown="@id/passwordTextInputEditText"
+            android:maxLines="1"
+            android:inputType="text"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -46,7 +51,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/userNameTextInputLayout"
         app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/colorPrimaryDark">
+        app:passwordToggleTint="@color/colorPrimaryDark"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordTextInputEditText"
@@ -56,11 +62,12 @@
             android:fontFamily="@font/segoe_ui_regular"
             android:hint="@string/sign_in_password"
             android:inputType="textPassword"
-            android:textCursorDrawable="@drawable/color_cursor" />
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:imeOptions="actionDone"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/login_sign_in"
+        android:id="@+id/actionBtn"
         android:layout_width="@dimen/_222sdp"
         android:layout_height="@dimen/_35sdp"
         android:layout_gravity="center_vertical|center_horizontal"
@@ -74,5 +81,20 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/passwordTextInputLayout" />
+
+    <TextView
+        android:id="@+id/noAccountBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/seguisb"
+        android:text="@string/dont_have_account"
+        app:layout_constraintTop_toBottomOf="@id/actionBtn"
+        app:layout_constraintLeft_toLeftOf="@id/actionBtn"
+        app:layout_constraintRight_toRightOf="@id/actionBtn"
+        android:gravity="center"
+        android:textDirection="rtl"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:textSize="@dimen/_13sdp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,10 +8,11 @@ import androidx.annotation.AnimRes
 import androidx.fragment.app.Fragment
 import com.givol.navigation.ActivityNavigator
 import com.givol.navigation.Arguments
+import com.givol.utils.ErrorHandler
 import com.givol.widgets.GivolToolbar
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
-import org.xml.sax.ErrorHandler
+
 import timber.log.Timber
 
 abstract class GivolFragment : Fragment(), GivolToolbar.ActionListener, SupportsOnBackPressed {

@@ -68,6 +68,11 @@ class GivolDialog(
         // STUB!
     }
 
+    fun setSubTitle(subtitle: String) {
+
+        arguments?.putString(SUBTITLE_ARGUMENT, subtitle)
+    }
+
     companion object {
         const val TAG = "GivolDialog"
     }

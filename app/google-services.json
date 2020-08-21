@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "16180550734",
+    "firebase_url": "https://givol-30ac9.firebaseio.com",
+    "project_id": "givol-30ac9",
+    "storage_bucket": "givol-30ac9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16180550734:android:4b0e3e0a946d385b67b71f",
+        "android_client_info": {
+          "package_name": "com.givol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "16180550734-arlrsujfjaa03pukvvlhdhp3lvnhhhk4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.givol",
+            "certificate_hash": "d8efc28cff13efe3ae7724638251ccad4e7b567c"
+          }
+        },
+        {
+          "client_id": "16180550734-4rjnnkmhk780smor1taopgv6aepo74e2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzdDtgOZURRNzX3kzfb_cvxthnuJQRVQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "16180550734-4rjnnkmhk780smor1taopgv6aepo74e2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

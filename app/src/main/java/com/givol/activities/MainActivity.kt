@@ -7,19 +7,48 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.givol.R
 import com.givol.core.GivolActivity
 import com.givol.core.SupportsOnBackPressed
+import com.givol.navigation.arguments.TransferInfo
+import com.givol.screens.MainScreen
 import com.givol.screens.SignInScreen
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.drawer_header.view.*
 import timber.log.Timber
 
 class MainActivity : GivolActivity() {
+
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         initializeDrawer()
-        
-        navigator.replace(SignInScreen())
+
+        // Initialize Firebase Auth
+        auth = FirebaseAuth.getInstance()
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+        updateUI(currentUser)
+    }
+
+    private fun updateUI(currentUser: FirebaseUser?) {
+        currentUser?.let {
+            // user is already logged in.
+            val transferInfo = TransferInfo()
+            transferInfo.uid = it.uid
+            navigator.replace(MainScreen(transferInfo))
+        } ?: run {
+            val transferInfo = TransferInfo()
+            transferInfo.flow = TransferInfo.Flow.SignIn
+            navigator.replace(SignInScreen(transferInfo))
+        }
     }
 
     override fun onResume() {
@@ -59,7 +88,7 @@ class MainActivity : GivolActivity() {
             Timber.i("$TAG -  onNavigationItemSelected - ${item.title}")
 
             when (item.itemId) {
-                R.id.navDepartmentInfo -> {
+                R.id.navActiveContest -> {
                     //TODO("onNavigationItemSelected")
                 }
             }

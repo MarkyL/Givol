@@ -3,10 +3,12 @@ package com.givol.di
 import android.content.Context
 import android.content.SharedPreferences
 import com.givol.R
+import com.givol.managers.FBUsersManager
 import com.givol.model.User
 import com.givol.navigation.ActivityNavigator
 import com.givol.navigation.FragmentNavigator
 import com.givol.utils.ErrorHandler
+import com.givol.utils.FirebaseUtils
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -32,7 +34,15 @@ val errorModule = module {
     single { ErrorHandler(get()) }
 }
 
+val managers = module {
+    single { FBUsersManager }
+}
+
+val utils = module {
+    single { FirebaseUtils }
+}
+
 // Gather all app modules
 val givolApp = listOf(
-    dataModule, navigatorModule, viewModelsModule, errorModule
+    dataModule, navigatorModule, viewModelsModule, errorModule, managers, utils
 )
