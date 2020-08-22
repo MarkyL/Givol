@@ -19,6 +19,18 @@ object FirebaseUtils {
         return getFirebaseUsersNodeReference(fragment).child(uid)
     }
 
+    fun getFirebaseContestsNodeReference(fragment: Fragment): DatabaseReference {
+        return getFirebaseDatabase().child(PARAM_CONTEST)
+    }
+
+    fun getFirebaseActiveContestsNodeReference(fragment: Fragment): DatabaseReference {
+        return getFirebaseContestsNodeReference(fragment).child(PARAM_ACTIVE_CONTEST)
+    }
+
+    fun getFirebaseFinishedContestsNodeReference(fragment: Fragment): DatabaseReference {
+        return getFirebaseContestsNodeReference(fragment).child(PARAM_FINISHED_CONTEST)
+    }
+
     const val PARAM_EMAIL = "email"
     const val PARAM_CONTEST = "contests"
     const val PARAM_ACTIVE_CONTEST = "active"
