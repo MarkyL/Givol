@@ -40,7 +40,8 @@ class PollSectionItemViewHolder constructor(override val containerView: View) :
     RecyclerView.ViewHolder(containerView), LayoutContainer, BaseAdapter.Binder<FBContest> {
 
     override fun bind(data: FBContest) {
-        containerView.title.text = data.title
+        containerView.title.text = data.businessName
+        containerView.date.text = data.times.dateStartStr
 
         GlideApp.with(containerView).load(data.logo)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)

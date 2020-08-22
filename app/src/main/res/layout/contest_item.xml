@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/_120sdp"
-    android:layout_height="@dimen/_120sdp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/background_gray"
     android:elevation="8dp"
     app:cardCornerRadius="8dp"
@@ -20,18 +20,26 @@
             android:layout_height="@dimen/_100sdp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.givol.widgets.GivolTextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            app:layout_constraintRight_toRightOf="@id/logoIV"
             app:layout_constraintTop_toBottomOf="@id/logoIV"
+            tools:text="מוזס" />
+
+        <com.givol.widgets.GivolTextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/title"
             app:layout_constraintRight_toRightOf="@id/logoIV"
             android:textColor="@color/black"
-            tools:text="מוזס"
-            />
+            android:textDirection="ltr"
+            tools:text="01-01-2021 20:30" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
 import com.givol.R
 import com.givol.activities.MainActivity
+import com.givol.adapters.BaseAdapter
 import com.givol.adapters.ContestsAdapter
 import com.givol.core.AbstractAction
 import com.givol.core.Action
@@ -14,6 +14,7 @@ import com.givol.core.GivolFragment
 import com.givol.core.SupportsOnBackPressed
 import com.givol.model.FBContest
 import com.givol.navigation.arguments.TransferInfo
+import com.givol.utils.DateTimeHelper
 import com.givol.utils.FirebaseUtils
 import com.givol.utils.GridSpacingItemDecoration
 import com.givol.widgets.GivolToolbar
@@ -21,12 +22,12 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.fragment_sign_in.*
 import kotlinx.android.synthetic.main.givol_toolbar.view.*
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
-class MainFragment: GivolFragment(), GivolToolbar.ActionListener, SupportsOnBackPressed {
+class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBackPressed,
+    BaseAdapter.AdapterListener<FBContest> {
 
     lateinit var transferInfo: TransferInfo
     private val fbUtil: FirebaseUtils by inject()
@@ -79,10 +80,27 @@ class MainFragment: GivolFragment(), GivolToolbar.ActionListener, SupportsOnBack
                     }
                 }
                 Timber.i("fbContestsList = $fbContestList")
-                contestsAdapter.submitList(fbContestList)
+
+                inflateContestListWithDates(fbContestList)
+                val sortedContestsByDate = fbContestList.sortedBy { it.times.dateStart }
+                contestsAdapter.submitList(sortedContestsByDate)
             }
 
         })
+    }
+
+    private fun inflateContestListWithDates(contestList: MutableList<FBContest>) {
+        for (contest in contestList) {
+            val start = contest.times.dateStartStr
+            DateTimeHelper.getDateFormat(start)?.let {
+                contest.times.dateStart = it
+            }
+
+            val end = contest.times.dateEndStr
+            DateTimeHelper.getDateFormat(end)?.let {
+                contest.times.dateEnd = it
+            }
+        }
     }
 
     override fun onActionSelected(action: AbstractAction): Boolean {
@@ -101,5 +119,9 @@ class MainFragment: GivolFragment(), GivolToolbar.ActionListener, SupportsOnBack
 
     private fun hideProgressView() {
         progressBar.visibility = View.GONE
+    }
+
+    override fun onItemClick(data: FBContest) {
+
     }
 }
