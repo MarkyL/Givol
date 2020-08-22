@@ -13,7 +13,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.contest_item.view.*
 
 
-class ContestsAdapter : BaseAdapter<FBContest>() {
+class ContestsAdapter(listener: AdapterListener<FBContest>) : BaseAdapter<FBContest>(listener) {
 
     init {
         setAnimationType(0)

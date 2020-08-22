@@ -14,6 +14,7 @@ import com.givol.core.GivolFragment
 import com.givol.core.SupportsOnBackPressed
 import com.givol.model.FBContest
 import com.givol.navigation.arguments.TransferInfo
+import com.givol.screens.ContestDetailsScreen
 import com.givol.utils.DateTimeHelper
 import com.givol.utils.FirebaseUtils
 import com.givol.utils.GridSpacingItemDecoration
@@ -32,7 +33,7 @@ class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBac
     lateinit var transferInfo: TransferInfo
     private val fbUtil: FirebaseUtils by inject()
 
-    private val contestsAdapter = ContestsAdapter()
+    private val contestsAdapter = ContestsAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,6 +123,8 @@ class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBac
     }
 
     override fun onItemClick(data: FBContest) {
-
+        val transferInfo = TransferInfo()
+        transferInfo.contest = data
+        navigator.replace(ContestDetailsScreen(transferInfo))
     }
 }
