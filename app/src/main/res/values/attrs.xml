@@ -5,4 +5,9 @@
         <attr name="titleContentDescription" format="string"/>
     </declare-styleable>
 
+    <declare-styleable name="TextualDataView">
+        <attr name="title_text" format="string" />
+        <attr name="data_text" format="string" />
+    </declare-styleable>
+
 </resources>

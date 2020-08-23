@@ -52,7 +52,7 @@ class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBac
         configureToolbar()
         recyclerView.apply {
             this.adapter = contestsAdapter
-            addItemDecoration(GridSpacingItemDecoration(2, 30, true))
+            addItemDecoration(GridSpacingItemDecoration(1, 30, true))
         }
     }
 
