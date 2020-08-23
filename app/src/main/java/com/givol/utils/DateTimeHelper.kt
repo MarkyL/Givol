@@ -10,6 +10,7 @@ object DateTimeHelper {
     val ISO_DATE_PATTERN = "yyyy-MM-dd'T'HH:mm'Z'"
     val SHORT_TIME_PATTERN = "HH:mm"
     val DATE_TIME_PATTERN = "dd/MM/yy HH:mm"
+    val DATE_TIME_SECONDS_PATTERN = "dd/MM/yy HH:mm:ss"
 
 
     fun getIsoDate(date: Long): String {
@@ -21,6 +22,12 @@ object DateTimeHelper {
         val calendar = Calendar.getInstance(Locale.ENGLISH)
         calendar.timeInMillis = timestamp * 1000L
         return DateFormat.format(DATE_TIME_PATTERN,calendar).toString()
+    }
+
+    fun getDateWithSeconds(timestamp: Long): String {
+        val calendar = Calendar.getInstance(Locale.ENGLISH)
+        calendar.timeInMillis = timestamp * 1000L
+        return DateFormat.format(DATE_TIME_SECONDS_PATTERN,calendar).toString()
     }
 
     fun getDateFormat(date: String): Date? {

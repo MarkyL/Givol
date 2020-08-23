@@ -23,7 +23,7 @@ data class FBContest(
     @get:PropertyName("participants") @set:PropertyName("participants")
     var participantsIdList: List<String> = listOf(),
 
-    @PropertyName("pictures") var pictures: List<String> = listOf(),
+    @PropertyName("details") var details: ContestDetails = ContestDetails(),
     @PropertyName("logo") var logo: String = "",
     @PropertyName("times") var times: Times = Times(),
     @PropertyName("prizes") var prizes: Prizes = Prizes()) {}
@@ -50,7 +50,25 @@ class Times(
     var timeEnd: String = "",
 
     @Exclude var dateStart: Date = Date(),
-    @Exclude var dateEnd: Date = Date()) {
+    @Exclude var dateEnd: Date = Date())
 
+class ContestDetails(
+    @get:PropertyName("description_one") @set:PropertyName("description_one")
+    var descriptionOne: String = "",
 
-}
+    @get:PropertyName("description_two") @set:PropertyName("description_two")
+    var descriptionTwo: String = "",
+
+    @get:PropertyName("description_three") @set:PropertyName("description_three")
+    var descriptionThree: String = "",
+
+    @get:PropertyName("title_one") @set:PropertyName("title_one")
+    var titleOne: String = "",
+
+    @get:PropertyName("title_two") @set:PropertyName("title_two")
+    var titleTwo: String = "",
+
+    @get:PropertyName("title_three") @set:PropertyName("title_three")
+    var titleThree: String = "",
+
+    @PropertyName("pictures") var pictures: List<String> = listOf())

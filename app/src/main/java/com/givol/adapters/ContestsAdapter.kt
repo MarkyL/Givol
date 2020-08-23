@@ -11,7 +11,7 @@ import com.givol.model.FBContest
 import com.givol.utils.GlideApp
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.contest_item.view.*
-import kotlinx.android.synthetic.main.textual_data_layout.view.*
+import kotlinx.android.synthetic.main.horizontal_textual_data_layout.view.*
 
 
 class ContestsAdapter(listener: AdapterListener<FBContest>) : BaseAdapter<FBContest>(listener) {
@@ -46,12 +46,10 @@ class ContestItemViewHolder constructor(override val containerView: View) :
             participantsTextualView.dataTv.text =
                 resources.getString(R.string.participants_data,
                     data.participantsIdList.size, data.minParticipants)
-            dueDateTextualView.dataTv.text = "17/04/2020 21:00"//data.times.dateEndStr
+            dueDateTextualView.dataTv.text = data.times.dateEndStr
             amountTextualView.dataTv.text =
                 resources.getString(R.string.amount_data, data.prizes.primary.value)
         }
-
-
 
         GlideApp.with(containerView).load(data.logo)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)

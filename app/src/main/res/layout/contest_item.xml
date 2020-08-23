@@ -34,7 +34,7 @@
             app:layout_constraintTop_toBottomOf="@id/logoIV"
             tools:text="מוזס" />
 
-        <com.givol.widgets.TextualDataView
+        <com.givol.widgets.HorizontalTextualDataView
             android:id="@+id/participantsTextualView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
             app:layout_constraintRight_toRightOf="@id/title"
             app:title_text="@string/participants_title" />
 
-        <com.givol.widgets.TextualDataView
+        <com.givol.widgets.HorizontalTextualDataView
             android:id="@+id/dueDateTextualView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
             app:layout_constraintTop_toBottomOf="@id/participantsTextualView"
             app:title_text="@string/due_date_title" />
 
-        <com.givol.widgets.TextualDataView
+        <com.givol.widgets.HorizontalTextualDataView
             android:id="@+id/amountTextualView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

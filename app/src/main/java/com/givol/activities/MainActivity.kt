@@ -29,14 +29,12 @@ class MainActivity : GivolActivity() {
 
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
-    }
-
-    override fun onStart() {
-        super.onStart()
 
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
-        updateUI(currentUser)
+        if (savedInstanceState == null) {
+            updateUI(currentUser)
+        }
     }
 
     private fun updateUI(currentUser: FirebaseUser?) {

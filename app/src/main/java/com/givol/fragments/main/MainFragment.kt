@@ -58,6 +58,7 @@ class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBac
 
     private fun configureToolbar() {
         homeToolbar.setTitle(resources.getString(R.string.app_name))
+//        homeToolbar.setTitleTextColor(resources.getColor(R.color.grey_10))
         homeToolbar.addActions(arrayOf(Action.Drawer), this)
     }
 
