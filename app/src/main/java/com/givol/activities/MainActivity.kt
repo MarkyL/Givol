@@ -6,6 +6,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.givol.R
 import com.givol.core.GivolActivity
+import com.givol.core.GivolFragment
 import com.givol.core.SupportsOnBackPressed
 import com.givol.navigation.arguments.TransferInfo
 import com.givol.screens.MainScreen
@@ -98,6 +99,15 @@ class MainActivity : GivolActivity() {
         }
     }
 
+    fun setDrawerState(currentFragment: GivolFragment) {
+        val drawerEnabled: Boolean = currentFragment.isDrawerEnabled
+        if (!drawerEnabled) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        }
+        drawerLayout.isEnabled = drawerEnabled
+        drawerLayout.setDrawerLockMode(if (drawerEnabled) DrawerLayout.LOCK_MODE_UNLOCKED else DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+    }
+
     fun openDrawer() {
         drawerLayout.openDrawer(GravityCompat.START)
     }
@@ -120,7 +130,13 @@ class MainActivity : GivolActivity() {
                 return
             }
         }
+
         super.onBackPressed()
+
+//        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+//        if (currentFragment != null) {
+//            setDrawerState(currentFragment as GivolFragment)
+//        }
     }
 
     companion object {

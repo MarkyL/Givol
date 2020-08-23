@@ -2,10 +2,12 @@ package com.givol.core
 
 import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.annotation.AnimRes
 import androidx.fragment.app.Fragment
+import com.givol.activities.MainActivity
 import com.givol.navigation.ActivityNavigator
 import com.givol.navigation.Arguments
 import com.givol.utils.ErrorHandler
@@ -64,6 +66,12 @@ abstract class GivolFragment : Fragment(), GivolToolbar.ActionListener, Supports
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        (activity as MainActivity).setDrawerState(this)
+    }
+
     override fun onStart() {
         super.onStart()
         activity?.applicationContext?.let {
@@ -89,7 +97,7 @@ abstract class GivolFragment : Fragment(), GivolToolbar.ActionListener, Supports
         get() = false
 
     override fun onActionSelected(action: AbstractAction): Boolean {
-        if (action == Action.BackBlack) {
+        if (action == Action.BackBlack || action == Action.BackWhite) {
             Timber.i("onActionSelected - BackBlack")
             activity?.onBackPressed()
             return true

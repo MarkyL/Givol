@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@android:color/holo_blue_dark">
+    android:background="@color/gray_background_light">
 
     <com.givol.widgets.GivolToolbar
         android:id="@+id/toolbar"
@@ -13,5 +13,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/promotion_pager_height"
+        android:layout_marginTop="@dimen/_6sdp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:clipToPadding="false"
+        android:paddingLeft="@dimen/_8sdp"
+        android:paddingRight="@dimen/_8sdp"
+        android:background="@color/gray_background_light"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

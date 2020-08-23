@@ -50,5 +50,7 @@
     <string name="amount_title">שווי ההגרלה:</string>
     <string name="amount_data">%d ₪</string>
 
+    <!-- Content description -->
+    <string name="contest_image_description">תמונת תחרות</string>
 
 </resources>

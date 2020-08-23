@@ -40,5 +40,6 @@
     <dimen name="regular_text_size_fixed" format="float">16dp</dimen>
     <dimen name="large_text_size_fixed" format="float">20dp</dimen>
 
+    <dimen name="promotion_pager_height">160dp</dimen>
 
 </resources>

@@ -25,7 +25,7 @@ class ContestsAdapter(listener: AdapterListener<FBContest>) : BaseAdapter<FBCont
     }
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
-        return PollSectionItemViewHolder(view)
+        return ContestItemViewHolder(view)
     }
 
     override fun submitList(listItems: List<FBContest>) {
@@ -37,7 +37,7 @@ class ContestsAdapter(listener: AdapterListener<FBContest>) : BaseAdapter<FBCont
     }
 }
 
-class PollSectionItemViewHolder constructor(override val containerView: View) :
+class ContestItemViewHolder constructor(override val containerView: View) :
     RecyclerView.ViewHolder(containerView), LayoutContainer, BaseAdapter.Binder<FBContest> {
 
     override fun bind(data: FBContest) {

@@ -57,9 +57,8 @@ class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBac
     }
 
     private fun configureToolbar() {
-        homeToolbar.titleTextView.text = resources.getString(R.string.app_name)
+        homeToolbar.setTitle(resources.getString(R.string.app_name))
         homeToolbar.addActions(arrayOf(Action.Drawer), this)
-
     }
 
     override fun onResume() {
@@ -127,4 +126,7 @@ class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBac
         transferInfo.contest = data
         navigator.replace(ContestDetailsScreen(transferInfo))
     }
+
+    override val isDrawerEnabled: Boolean
+        get() = true
 }
