@@ -3,14 +3,15 @@ package com.givol.di
 import android.content.Context
 import android.content.SharedPreferences
 import com.givol.R
+import com.givol.fragments.contestDetails.ContestDetailsViewModel
 import com.givol.fragments.main.MainViewModel
-import com.givol.managers.FBUsersManager
 import com.givol.model.User
 import com.givol.navigation.ActivityNavigator
 import com.givol.navigation.FragmentNavigator
 import com.givol.utils.ErrorHandler
-import com.givol.utils.FirebaseManager
+import com.givol.managers.ContestsFirebaseManager
 import com.givol.utils.FirebaseUtils
+import com.givol.managers.UserFirebaseManager
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -31,6 +32,7 @@ val navigatorModule = module {
 
 val viewModelsModule = module {
      viewModel { MainViewModel(get(), get()) }
+     viewModel { ContestDetailsViewModel(get(), get()) }
 }
 
 val errorModule = module {
@@ -38,12 +40,12 @@ val errorModule = module {
 }
 
 val managers = module {
-    single { FBUsersManager }
+    single { ContestsFirebaseManager }
+    single { UserFirebaseManager }
 }
 
 val utils = module {
     single { FirebaseUtils }
-    single { FirebaseManager }
 }
 
 // Gather all app modules

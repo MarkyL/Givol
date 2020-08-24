@@ -1,7 +1,9 @@
-package com.givol.utils
+package com.givol.managers
 
 import androidx.lifecycle.MutableLiveData
 import com.givol.model.FBContest
+import com.givol.utils.DateTimeHelper
+import com.givol.utils.FirebaseUtils
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -10,7 +12,7 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import timber.log.Timber
 
-object FirebaseManager : KoinComponent {
+object ContestsFirebaseManager : KoinComponent {
 
     private val fbUtil: FirebaseUtils by inject()
 
@@ -20,8 +22,10 @@ object FirebaseManager : KoinComponent {
     private val contestsReference: DatabaseReference
 
     init {
-        contestsListener = createContestsListener()
-        contestsReference = fbUtil.getFirebaseActiveContestsNodeReference()
+        contestsListener =
+            createContestsListener()
+        contestsReference =
+            FirebaseUtils.getFirebaseActiveContestsNodeReference()
     }
 
     //region Contests
@@ -38,7 +42,9 @@ object FirebaseManager : KoinComponent {
                 }
                 Timber.i("fbContestsList = $fbContestList")
 
-                inflateContestListWithDates(fbContestList)
+                inflateContestListWithDates(
+                    fbContestList
+                )
                 val sortedContestsByDate = fbContestList.sortedBy { it.times.dateStart }
 
                 contestsLiveData.value = sortedContestsByDate

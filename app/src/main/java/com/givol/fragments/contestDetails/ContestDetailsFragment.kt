@@ -5,6 +5,7 @@ import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.givol.R
 import com.givol.adapters.PicturesAdapter
@@ -12,20 +13,15 @@ import com.givol.core.Action
 import com.givol.core.GivolFragment
 import com.givol.core.SupportsOnBackPressed
 import com.givol.model.FBContest
+import com.givol.model.FBUser
 import com.givol.navigation.arguments.TransferInfo
 import com.givol.utils.DateTimeHelper
-import com.givol.utils.FirebaseUtils
 import com.givol.utils.GlideApp
-import com.givol.utils.Toaster
 import com.givol.widgets.GivolToolbar
-import kotlinx.android.synthetic.main.contest_item.view.*
 import kotlinx.android.synthetic.main.fragment_contest_details.*
 import kotlinx.android.synthetic.main.givol_toolbar.view.*
-import kotlinx.android.synthetic.main.picture_item.view.*
-import kotlinx.android.synthetic.main.horizontal_textual_data_layout.view.*
-import kotlinx.android.synthetic.main.horizontal_textual_data_layout.view.titleTv
-import kotlinx.android.synthetic.main.vertical_textual_data_layout.view.*
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 //TODO: viewpager with pictures of the business/contest/promotion
 //TODO: toolbar title with business name
@@ -38,7 +34,7 @@ import org.koin.android.ext.android.inject
 
 class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBackPressed {
 
-    private val fbUtil: FirebaseUtils by inject()
+    private val viewModel by viewModel<ContestDetailsViewModel>()
 
     private lateinit var transferInfo: TransferInfo
     private lateinit var contest: FBContest
@@ -60,7 +56,6 @@ class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, Sup
         contest = transferInfo.contest
         configureToolbar()
         configureScreen()
-
 
     }
 
@@ -127,7 +122,10 @@ class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, Sup
 
     //region registration logic
     private fun checkParticipationStatus() {
-
+        //showProgressView()
+        viewModel.checkParticipationStatus(transferInfo.uid).observe(viewLifecycleOwner, Observer<FBUser> {
+            Timber.i("mark - checkStatus = $it")
+        })
     }
 
     //endregion

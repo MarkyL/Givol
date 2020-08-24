@@ -18,7 +18,7 @@ import com.givol.mvvm.State
 import com.givol.navigation.arguments.TransferInfo
 import com.givol.screens.ContestDetailsScreen
 import com.givol.utils.Event
-import com.givol.utils.FirebaseManager
+import com.givol.managers.ContestsFirebaseManager
 import com.givol.utils.GridSpacingItemDecoration
 import com.givol.widgets.GivolToolbar
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -32,7 +32,7 @@ class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBac
     lateinit var transferInfo: TransferInfo
     //private val fbUtil: FirebaseUtils by inject()
 
-    private val firebaseManager: FirebaseManager by inject()
+    private val firebaseManager: ContestsFirebaseManager by inject()
     private val viewModel by viewModel<MainViewModel>()
 
     private val contestsAdapter = ContestsAdapter(this)
