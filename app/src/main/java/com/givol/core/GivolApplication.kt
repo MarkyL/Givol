@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.res.Configuration
 import android.util.SparseArray
 import com.givol.di.givolApp
+import com.givol.model.User
 import com.givol.navigation.Arguments
 import com.givol.navigation.Screen
 import com.givol.navigation.arguments.TransferInfo
@@ -43,7 +44,7 @@ class GivolApplication : Application() {
 
         registerFragmentArguments()
         registerScreens()
-        //User.register(this)
+        User.register(this)
     }
 
     private fun registerFragmentArguments() {

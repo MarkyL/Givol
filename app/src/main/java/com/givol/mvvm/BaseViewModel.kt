@@ -27,7 +27,6 @@ abstract class BaseViewModel<T, R>(application: Application) : ViewModel(),
         ) //Initializing the ViewModel
     }
 
-
     val stateStream: LiveData<LiveState<T>>
         get() = state
     val dataStream: LiveData<ViewModelHolder<T>>

@@ -19,7 +19,7 @@
         android:id="@+id/detailsScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        
+
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,6 +61,17 @@
                 app:layout_constraintTop_toBottomOf="@id/amountTv"
                 tools:text="30/50" />
 
+            <Button
+                android:id="@+id/actionBtn"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_32sdp"
+                app:layout_constraintBaseline_toBaselineOf="@id/amountTv"
+                app:layout_constraintRight_toRightOf="@id/viewPager"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:text="@string/register_to_contest"
+                />
+
             <com.givol.widgets.GivolTextView
                 android:id="@+id/timerTv"
                 android:layout_width="wrap_content"
@@ -70,9 +81,8 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/_16sdp"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/viewPager"
+                app:layout_constraintTop_toBottomOf="@id/actionBtn"
                 tools:text="12:30:24" />
-
 
             <ImageView
                 android:id="@+id/logoIv"

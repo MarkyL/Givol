@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import com.givol.utils.StringUtils
 import timber.log.Timber
 
-data class User(var verificationToken: String, val phoneNumber: String) {
+data class User(var name: String? = StringUtils.EMPTY_STRING, val uid: String) {
 
     constructor() : this(StringUtils.EMPTY_STRING, StringUtils.EMPTY_STRING)
 
@@ -14,17 +14,17 @@ data class User(var verificationToken: String, val phoneNumber: String) {
         private var me: User? = null
         private lateinit var preferences: SharedPreferences
         const val CURRENT_USER_FILE_NAME = "current_user"
-        private const val PHONE_PREFERENCE = "phone"
-        private const val FIRE_BASE_AUTH_TOKEN = "fb_token"
-        private const val FCM_TOKEN = "fcm_token"
-        private const val FONT_STYLE = "font_style"
+        private const val NAME_PREFERENCE = "name"
+        private const val UID_PREFERENCE = "uid"
 
-        fun create(verificationToken: String, phoneNumber: String, fireBaseAuthToken: String): User {
-            me = User(verificationToken, phoneNumber)
+        fun create(name: String?, uid: String): User {
+            me = User(name, uid)
 
             me?.let {
-                it.setPhonePreference(phoneNumber)
-                it.setFireBaseAuthToken(fireBaseAuthToken)
+                if (name != null)
+                    it.setUsername(name)
+
+                it.setUID(uid)
                 return it
             }
 
@@ -37,7 +37,7 @@ data class User(var verificationToken: String, val phoneNumber: String) {
         }
 
         fun me(): User? {
-            if (me == null && preferences.getString(PHONE_PREFERENCE, null) != null) {
+            if (me == null && preferences.getString(UID_PREFERENCE, null) != null) {
                 me = User()
                 Timber.i("User object is null ! created new User")
             }
@@ -46,28 +46,20 @@ data class User(var verificationToken: String, val phoneNumber: String) {
 
     }
 
-    fun setPhonePreference(phoneNumber: String) {
-        preferences.edit().putString(PHONE_PREFERENCE, phoneNumber).apply()
+    fun setUsername(phoneNumber: String) {
+        preferences.edit().putString(NAME_PREFERENCE, phoneNumber).apply()
     }
 
-    fun getPhone(): String {
-        return preferences.getString(PHONE_PREFERENCE, StringUtils.EMPTY_STRING).toString()
+    fun getUsername(): String {
+        return preferences.getString(NAME_PREFERENCE, StringUtils.EMPTY_STRING).toString()
     }
 
-    fun setFireBaseAuthToken(fireBaseAuthToken: String) {
-        preferences.edit().putString(FIRE_BASE_AUTH_TOKEN, fireBaseAuthToken).apply()
+    fun setUID(fireBaseAuthToken: String) {
+        preferences.edit().putString(UID_PREFERENCE, fireBaseAuthToken).apply()
     }
 
-    fun getFireBaseAuthToken(): String {
-        return preferences.getString(FIRE_BASE_AUTH_TOKEN, StringUtils.EMPTY_STRING).toString()
-    }
-
-    fun setFcmToken(fcmToken: String) {
-        preferences.edit().putString(FCM_TOKEN, fcmToken).apply()
-    }
-
-    fun getFcmToken(): String {
-        return preferences.getString(FCM_TOKEN, StringUtils.EMPTY_STRING).toString()
+    fun getUID(): String {
+        return preferences.getString(UID_PREFERENCE, StringUtils.EMPTY_STRING).toString()
     }
 
     fun saveBooleanParam(key: String, state: Boolean) {

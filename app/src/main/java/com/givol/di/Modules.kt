@@ -3,13 +3,16 @@ package com.givol.di
 import android.content.Context
 import android.content.SharedPreferences
 import com.givol.R
+import com.givol.fragments.main.MainViewModel
 import com.givol.managers.FBUsersManager
 import com.givol.model.User
 import com.givol.navigation.ActivityNavigator
 import com.givol.navigation.FragmentNavigator
 import com.givol.utils.ErrorHandler
+import com.givol.utils.FirebaseManager
 import com.givol.utils.FirebaseUtils
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val dataModule = module(override = true) {
@@ -27,7 +30,7 @@ val navigatorModule = module {
 }
 
 val viewModelsModule = module {
-    // viewModel { MainViewModel(get(), get()) }
+     viewModel { MainViewModel(get(), get()) }
 }
 
 val errorModule = module {
@@ -40,6 +43,7 @@ val managers = module {
 
 val utils = module {
     single { FirebaseUtils }
+    single { FirebaseManager }
 }
 
 // Gather all app modules

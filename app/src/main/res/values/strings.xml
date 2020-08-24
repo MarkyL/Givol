@@ -40,9 +40,6 @@
     <string name="login_error_general">שגיאת התחברות, אנא נסה שוב</string>
     <string name="signup_error_general">שגיאת הרשמה, אנא נסה שוב</string>
 
-    <!-- Firebase Database -->
-    <string name="users_node">users</string>
-
     <!-- Main contest texts -->
     <string name="participants_title">משתתפים:</string>
     <string name="participants_data">%d/%d</string>
@@ -53,5 +50,9 @@
     <!-- Content description -->
     <string name="contest_image_description">תמונת תחרות</string>
     <string name="contest_began">ההגרלה החלה!</string>
+
+    <!-- Content details screen -->
+    <string name="register_to_contest">השתתפות</string>
+    <string name="un_register_to_contest">ביטול השתתפות</string>
 
 </resources>

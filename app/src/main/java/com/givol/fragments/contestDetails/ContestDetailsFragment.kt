@@ -14,6 +14,7 @@ import com.givol.core.SupportsOnBackPressed
 import com.givol.model.FBContest
 import com.givol.navigation.arguments.TransferInfo
 import com.givol.utils.DateTimeHelper
+import com.givol.utils.FirebaseUtils
 import com.givol.utils.GlideApp
 import com.givol.utils.Toaster
 import com.givol.widgets.GivolToolbar
@@ -24,6 +25,7 @@ import kotlinx.android.synthetic.main.picture_item.view.*
 import kotlinx.android.synthetic.main.horizontal_textual_data_layout.view.*
 import kotlinx.android.synthetic.main.horizontal_textual_data_layout.view.titleTv
 import kotlinx.android.synthetic.main.vertical_textual_data_layout.view.*
+import org.koin.android.ext.android.inject
 
 //TODO: viewpager with pictures of the business/contest/promotion
 //TODO: toolbar title with business name
@@ -33,13 +35,14 @@ import kotlinx.android.synthetic.main.vertical_textual_data_layout.view.*
 //TODO: participate button with logic - show "register" if not registered, and "unregister" if already registered.
 //TODO: if user has reached max amount of contests (should be const, currently #3) - disable the button.
 //TODO: suggestion: show a dialog explaining why the button is disabled (?)
-//TODO:
 
 class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBackPressed {
 
+    private val fbUtil: FirebaseUtils by inject()
+
     private lateinit var transferInfo: TransferInfo
-    private lateinit var picturesAdapter: PicturesAdapter
     private lateinit var contest: FBContest
+    private lateinit var picturesAdapter: PicturesAdapter
 
     private var countDownTimer: CountDownTimer? = null
 
@@ -69,6 +72,7 @@ class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, Sup
     private fun configureScreen() {
         configurePictures()
         configureTexts()
+        checkParticipationStatus()
     }
 
     private fun configurePictures() {
@@ -120,4 +124,11 @@ class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, Sup
         super.onPause()
         cancelTimer()
     }
+
+    //region registration logic
+    private fun checkParticipationStatus() {
+
+    }
+
+    //endregion
 }

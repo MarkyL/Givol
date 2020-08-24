@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.givol.R
 import com.givol.activities.MainActivity
 import com.givol.adapters.BaseAdapter
@@ -13,25 +14,26 @@ import com.givol.core.Action
 import com.givol.core.GivolFragment
 import com.givol.core.SupportsOnBackPressed
 import com.givol.model.FBContest
+import com.givol.mvvm.State
 import com.givol.navigation.arguments.TransferInfo
 import com.givol.screens.ContestDetailsScreen
-import com.givol.utils.DateTimeHelper
-import com.givol.utils.FirebaseUtils
+import com.givol.utils.Event
+import com.givol.utils.FirebaseManager
 import com.givol.utils.GridSpacingItemDecoration
 import com.givol.widgets.GivolToolbar
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.givol_toolbar.view.*
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBackPressed,
     BaseAdapter.AdapterListener<FBContest> {
 
     lateinit var transferInfo: TransferInfo
-    private val fbUtil: FirebaseUtils by inject()
+    //private val fbUtil: FirebaseUtils by inject()
+
+    private val firebaseManager: FirebaseManager by inject()
+    private val viewModel by viewModel<MainViewModel>()
 
     private val contestsAdapter = ContestsAdapter(this)
 
@@ -49,6 +51,7 @@ class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBac
 
         transferInfo = castArguments(TransferInfo::class.java)
 
+        registerViewModel()
         configureToolbar()
         recyclerView.apply {
             this.adapter = contestsAdapter
@@ -58,51 +61,67 @@ class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBac
 
     private fun configureToolbar() {
         homeToolbar.setTitle(resources.getString(R.string.app_name))
-//        homeToolbar.setTitleTextColor(resources.getColor(R.color.grey_10))
         homeToolbar.addActions(arrayOf(Action.Drawer), this)
     }
 
     override fun onResume() {
         super.onResume()
+        getContests()
+    }
 
-        val dbReference = fbUtil.getFirebaseActiveContestsNodeReference(this)
-        dbReference.addListenerForSingleValueEvent(object: ValueEventListener{
-            override fun onCancelled(error: DatabaseError) {
-                Timber.i("getFirebaseActiveContestsNodeReference onCancelled")
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                Timber.i("getFirebaseActiveContestsNodeReference onDataChange - $snapshot")
-                val fbContestList = mutableListOf<FBContest>()
-                for(childSnapShot in snapshot.children) {
-                    val element = childSnapShot.getValue(FBContest::class.java)
-                    element?.let {
-                        fbContestList.add(element)
-                    }
-                }
-                Timber.i("fbContestsList = $fbContestList")
-
-                inflateContestListWithDates(fbContestList)
-                val sortedContestsByDate = fbContestList.sortedBy { it.times.dateStart }
-                contestsAdapter.submitList(sortedContestsByDate)
-            }
-
+    private fun getContests() {
+        showProgressView()
+        viewModel.getContests().observe(this, Observer<List<FBContest>> {
+            contestsAdapter.submitList(it)
+            hideProgressView()
         })
     }
 
-    private fun inflateContestListWithDates(contestList: MutableList<FBContest>) {
-        for (contest in contestList) {
-            val start = contest.times.dateStartStr
-            DateTimeHelper.getDateFormat(start)?.let {
-                contest.times.dateStart = it
-            }
-
-            val end = contest.times.dateEndStr
-            DateTimeHelper.getDateFormat(end)?.let {
-                contest.times.dateEnd = it
-            }
-        }
+    private fun registerViewModel() {
+        viewModel.dataStream.observe(
+            viewLifecycleOwner,
+            Observer { t ->
+                when (t.state) {
+                    State.INIT -> {
+                    }
+                    State.LOADING -> {
+                        //    showProgressView()
+                    }
+                    State.NEXT -> {
+                        hideProgressView()
+                        handleNext(t.data)
+                    }
+                    State.ERROR -> {
+                        t.throwable?.let { handleError(it) }
+                    }
+                    State.COMPLETE -> {
+                        hideProgressView()
+                    }
+                }
+            })
     }
+
+    private fun handleNext(result: Event<MainDataState>?) {
+//        result?.let { responseEvent ->
+//            if (!responseEvent.consumed) {
+//                responseEvent.consume()?.let { response ->
+//                    when (response) {
+//                        is GetContestsSuccess -> handleGetContestsSuccess(response)
+//                        GetContestsFailure -> TODO()
+//                    }
+//                }
+//            }
+//        }
+    }
+
+    private fun handleError(throwable: Throwable) {
+        hideProgressView()
+        errorHandler.handleError(this, throwable)
+    }
+
+//    private fun handleGetContestsSuccess(response: GetContestsSuccess) {
+//        contestsAdapter.submitList(response.contestsList)
+//    }
 
     override fun onActionSelected(action: AbstractAction): Boolean {
         if (action == Action.Drawer) {

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import com.givol.R
 import com.givol.core.GivolFragment
+import com.givol.model.User
 import com.givol.navigation.arguments.TransferInfo
 import com.givol.screens.MainScreen
 import com.givol.utils.FirebaseUtils
@@ -162,7 +163,7 @@ class SignInFragment: GivolFragment() {
 
     private fun initUserDefaultData(user: FirebaseUser) {
         Timber.i("mark test")
-        val dbReference = fbUtil.getFirebaseUserNodeReference(this, user.uid)
+        val dbReference = fbUtil.getFirebaseUserNodeReference(user.uid)
 
         //Email
         dbReference.child(fbUtil.PARAM_EMAIL).setValue(user.email)
@@ -182,6 +183,7 @@ class SignInFragment: GivolFragment() {
 
     private fun updateUI(user: FirebaseUser) {
         // user has logged in.
+        User.create(user.email, user.uid)
         val transferInfo = TransferInfo()
         transferInfo.uid = user.uid
         navigator.replace(MainScreen(transferInfo))
