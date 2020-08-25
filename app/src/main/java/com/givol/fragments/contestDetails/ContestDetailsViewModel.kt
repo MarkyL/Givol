@@ -10,16 +10,18 @@ import timber.log.Timber
 
 class ContestDetailsViewModel constructor(
     application: Application,
-    private val userFirebaseManager: UserFirebaseManager
-) : BaseViewModel<Event<ContestDetailsState>, ContestDetailsEvent>(application = application) {
+    private val userFirebaseManager: UserFirebaseManager) : BaseViewModel<Event<ContestDetailsState>, ContestDetailsEvent>(application = application) {
 
     override fun handleScreenEvents(event: ContestDetailsEvent) {
         Timber.i("dispatchScreenEvent: ${event.javaClass.simpleName}")
     }
 
-    fun checkParticipationStatus(uid: String): MutableLiveData<FBUser> {
-        userFirebaseManager.addSingleContestListener(uid)
-        return userFirebaseManager.userLiveData
+    fun registerToContest(uid: String, contestID: String) {
+        userFirebaseManager.registerFromContest(uid, contestID)
+    }
+
+    fun unregisterFromContest(uid: String, contestID: String) {
+        userFirebaseManager.unregisterFromContest(uid, contestID)
     }
 
 }

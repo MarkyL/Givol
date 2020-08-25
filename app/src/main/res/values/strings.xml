@@ -54,5 +54,7 @@
     <!-- Content details screen -->
     <string name="register_to_contest">השתתפות</string>
     <string name="un_register_to_contest">ביטול השתתפות</string>
+    <string name="non_eligibility_dialog_title">הרשמה להגרלה נדחתה</string>
+    <string name="non_eligibility_dialog_subtitle">כל משתמש זכאי להירשם לעד %d הגרלות בכל רגע.</string>
 
 </resources>

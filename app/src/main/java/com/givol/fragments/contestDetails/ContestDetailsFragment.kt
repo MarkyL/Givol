@@ -12,14 +12,18 @@ import com.givol.adapters.PicturesAdapter
 import com.givol.core.Action
 import com.givol.core.GivolFragment
 import com.givol.core.SupportsOnBackPressed
+import com.givol.dialogs.GivolDialog
+import com.givol.fragments.main.MainViewModel
 import com.givol.model.FBContest
 import com.givol.model.FBUser
+import com.givol.model.User.Companion.MAX_CONTESTS_REGISTRATION
 import com.givol.navigation.arguments.TransferInfo
 import com.givol.utils.DateTimeHelper
 import com.givol.utils.GlideApp
 import com.givol.widgets.GivolToolbar
 import kotlinx.android.synthetic.main.fragment_contest_details.*
 import kotlinx.android.synthetic.main.givol_toolbar.view.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -35,12 +39,14 @@ import timber.log.Timber
 class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBackPressed {
 
     private val viewModel by viewModel<ContestDetailsViewModel>()
+    private val mainViewModel by sharedViewModel<MainViewModel>()
 
     private lateinit var transferInfo: TransferInfo
     private lateinit var contest: FBContest
     private lateinit var picturesAdapter: PicturesAdapter
 
     private var countDownTimer: CountDownTimer? = null
+    private var isUserRegistered = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,6 +74,7 @@ class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, Sup
         configurePictures()
         configureTexts()
         checkParticipationStatus()
+        actionBtn.setOnClickListener { onActionBtnClicked() }
     }
 
     private fun configurePictures() {
@@ -122,11 +129,75 @@ class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, Sup
 
     //region registration logic
     private fun checkParticipationStatus() {
-        //showProgressView()
-        viewModel.checkParticipationStatus(transferInfo.uid).observe(viewLifecycleOwner, Observer<FBUser> {
-            Timber.i("mark - checkStatus = $it")
-        })
+        val userData = transferInfo.user
+        Timber.i("mark - user = $userData")
+        if (userData.contests.active.contains(transferInfo.contest.contestID)) {
+            // User is already registered to this contest
+            setUserIsRegistered()
+        }
+    }
+
+    private fun setUserIsRegistered() {
+        toggleUserRegistrationState(true)
+        actionBtn.text = resources.getString(R.string.un_register_to_contest)
     }
 
     //endregion
+
+    private fun onActionBtnClicked() {
+        if (isUserRegistered) {
+            performUnRegistrationFlow()
+        } else {
+            performRegistrationFlow()
+        }
+    }
+
+    private fun performUnRegistrationFlow() {
+        actionBtn.text = resources.getString(R.string.register_to_contest)
+        viewModel.unregisterFromContest(transferInfo.uid, transferInfo.contest.contestID)
+        toggleUserRegistrationState(false)
+
+        getUserData()
+    }
+
+    private fun getUserData() {
+        mainViewModel.getUserData(transferInfo.uid).observe(viewLifecycleOwner, Observer<FBUser> {
+            Timber.i("mark - checkStatus = $it")
+            transferInfo.user = it
+        })
+    }
+
+    private fun performRegistrationFlow() {
+        // Check if user is eligible to register to a contest
+        if (checkRegistrationEligibility()) {
+            actionBtn.text = resources.getString(R.string.un_register_to_contest)
+            viewModel.registerToContest(transferInfo.uid, transferInfo.contest.contestID)
+            toggleUserRegistrationState(true)
+            getUserData()
+        } else {
+            showNonEligibilityDialog()
+        }
+    }
+
+    private fun showNonEligibilityDialog() {
+        val dialog = GivolDialog(
+            title = resources.getString(R.string.non_eligibility_dialog_title),
+            subtitle = resources.getString(R.string.non_eligibility_dialog_subtitle, MAX_CONTESTS_REGISTRATION),
+            iconDrawable = R.drawable.ic_warning_black,
+            positiveButtonText = R.string.dialog_positive_ok
+        )
+
+        dialog.show(parentFragmentManager, GivolDialog.TAG)
+    }
+
+    /**
+     * User is eligible to register to a contest if he has no more than #3 contests running simultaneously to his name.
+     */
+    private fun checkRegistrationEligibility(): Boolean {
+        return transferInfo.user.contests.active.size < MAX_CONTESTS_REGISTRATION
+    }
+
+    private fun toggleUserRegistrationState(isRegistered: Boolean) {
+        this.isUserRegistered = isRegistered
+    }
 }

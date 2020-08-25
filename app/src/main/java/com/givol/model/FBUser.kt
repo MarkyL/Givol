@@ -10,6 +10,6 @@ data class FBUser(
     var contests: UserContests = UserContests())
 
 class UserContests(
-    @PropertyName("active") var active: List<String> = listOf(),
-    @PropertyName("finished") var finished: List<String> = listOf(),
-    @PropertyName("won") var won: List<String> = listOf())
+    @PropertyName("active") var active: HashMap<String, Boolean> = hashMapOf(),
+    @PropertyName("finished") var finished: HashMap<String, Boolean> = hashMapOf(),
+    @PropertyName("won") var won: HashMap<String, Boolean> = hashMapOf())

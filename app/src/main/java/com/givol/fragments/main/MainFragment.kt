@@ -19,6 +19,7 @@ import com.givol.navigation.arguments.TransferInfo
 import com.givol.screens.ContestDetailsScreen
 import com.givol.utils.Event
 import com.givol.managers.ContestsFirebaseManager
+import com.givol.model.FBUser
 import com.givol.utils.GridSpacingItemDecoration
 import com.givol.widgets.GivolToolbar
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -66,6 +67,7 @@ class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBac
 
     override fun onResume() {
         super.onResume()
+        getUserData()
         getContests()
     }
 
@@ -74,6 +76,13 @@ class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBac
         viewModel.getContests().observe(this, Observer<List<FBContest>> {
             contestsAdapter.submitList(it)
             hideProgressView()
+        })
+    }
+
+    private fun getUserData() {
+        viewModel.getUserData(transferInfo.uid).observe(viewLifecycleOwner, Observer<FBUser> {
+            Timber.i("mark - checkStatus = $it")
+            transferInfo.user = it
         })
     }
 
@@ -119,9 +128,6 @@ class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBac
         errorHandler.handleError(this, throwable)
     }
 
-//    private fun handleGetContestsSuccess(response: GetContestsSuccess) {
-//        contestsAdapter.submitList(response.contestsList)
-//    }
 
     override fun onActionSelected(action: AbstractAction): Boolean {
         if (action == Action.Drawer) {
@@ -142,7 +148,8 @@ class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBac
     }
 
     override fun onItemClick(data: FBContest) {
-        val transferInfo = TransferInfo()
+        //TODO - handle race condition if user in trasnfer Info is empty (void object).
+
         transferInfo.contest = data
         navigator.replace(ContestDetailsScreen(transferInfo))
     }

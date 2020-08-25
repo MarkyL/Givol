@@ -17,6 +17,8 @@ data class User(var name: String? = StringUtils.EMPTY_STRING, val uid: String) {
         private const val NAME_PREFERENCE = "name"
         private const val UID_PREFERENCE = "uid"
 
+        const val MAX_CONTESTS_REGISTRATION = 3
+
         fun create(name: String?, uid: String): User {
             me = User(name, uid)
 

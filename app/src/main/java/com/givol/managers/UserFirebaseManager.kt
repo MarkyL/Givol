@@ -30,20 +30,12 @@ object UserFirebaseManager : KoinComponent {
         return object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 Timber.i("getFirebaseUsersNodeReference onDataChange - $snapshot")
-                val userData = snapshot.getValue(FBUser::class.java)
-                Timber.i("received data of user - $userData")
-//                val fbContestList = mutableListOf<FBContest>()
-//                for (childSnapShot in snapshot.children) {
-//                    val element = childSnapShot.getValue(FBContest::class.java)
-//                    element?.let {
-//                        fbContestList.add(element)
-//                    }
-//                }
-//                Timber.i("fbContestsList = $fbContestList")
-//
-//                inflateContestListWithDates(fbContestList)
-//                val sortedContestsByDate = fbContestList.sortedBy { it.times.dateStart }
-//
+                val userData = FBUser()
+                with(userData.contests) {
+                    snapshot.child(fbUtil.PARAM_CONTEST).child(fbUtil.PARAM_ACTIVE_CONTEST).value?.let { active = it as HashMap<String, Boolean> }
+                    snapshot.child(fbUtil.PARAM_CONTEST).child(fbUtil.PARAM_FINISHED_CONTEST).value?.let { finished = it as HashMap<String, Boolean> }
+                    snapshot.child(fbUtil.PARAM_CONTEST).child(fbUtil.PARAM_WON_CONTEST).value?.let { won = it as HashMap<String, Boolean> }
+                }
                 userLiveData.value = userData
             }
 
@@ -55,6 +47,14 @@ object UserFirebaseManager : KoinComponent {
 
     fun addSingleContestListener(uid: String) {
         usersReference.child(uid).addListenerForSingleValueEvent(userListener)
+    }
+
+    fun registerFromContest(uid: String, contestID: String) {
+        fbUtil.getUserActiveContestNodeReference(uid).child(contestID).setValue(true)
+    }
+
+    fun unregisterFromContest(uid: String, contestID: String) {
+        fbUtil.getUserActiveContestNodeReference(uid).child(contestID).removeValue()
     }
 
     //endregion

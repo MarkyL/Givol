@@ -6,12 +6,14 @@ import com.givol.model.FBContest
 import com.givol.mvvm.BaseViewModel
 import com.givol.utils.Event
 import com.givol.managers.ContestsFirebaseManager
+import com.givol.managers.UserFirebaseManager
+import com.givol.model.FBUser
 import timber.log.Timber
 
 class MainViewModel constructor(
     application: Application,
-    private val firebaseManager: ContestsFirebaseManager
-)
+    private val contestManager: ContestsFirebaseManager,
+    private val userManager: UserFirebaseManager)
     : BaseViewModel<Event<MainDataState>, MainDataEvent>(application = application) {
 
     override fun handleScreenEvents(event: MainDataEvent) {
@@ -22,8 +24,13 @@ class MainViewModel constructor(
     }
 
     fun getContests(): MutableLiveData<List<FBContest>> {
-        firebaseManager.addSingleContestListener()
-        return firebaseManager.contestsLiveData
+        contestManager.addSingleContestListener()
+        return contestManager.contestsLiveData
+    }
+
+    fun getUserData(uid: String): MutableLiveData<FBUser> {
+        userManager.addSingleContestListener(uid)
+        return userManager.userLiveData
     }
 
 }

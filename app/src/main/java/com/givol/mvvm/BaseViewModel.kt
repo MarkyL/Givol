@@ -79,6 +79,7 @@ abstract class BaseViewModel<T, R>(application: Application) : ViewModel(),
     }
 
     abstract fun handleScreenEvents(event: R)
+
 }
 
 sealed class LiveState<out T>

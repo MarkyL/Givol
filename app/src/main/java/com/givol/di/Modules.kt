@@ -31,7 +31,7 @@ val navigatorModule = module {
 }
 
 val viewModelsModule = module {
-     viewModel { MainViewModel(get(), get()) }
+     viewModel { MainViewModel(get(), get(), get()) }
      viewModel { ContestDetailsViewModel(get(), get()) }
 }
 
