@@ -18,6 +18,8 @@ import com.givol.model.FBContest
 import com.givol.model.FBUser
 import com.givol.model.User.Companion.MAX_CONTESTS_REGISTRATION
 import com.givol.navigation.arguments.TransferInfo
+import com.givol.screens.BusinessDetailsScreen
+import com.givol.screens.ContestDetailsScreen
 import com.givol.utils.DateTimeHelper
 import com.givol.utils.GlideApp
 import com.givol.widgets.GivolToolbar
@@ -75,6 +77,7 @@ class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, Sup
         configureTexts()
         checkParticipationStatus()
         actionBtn.setOnClickListener { onActionBtnClicked() }
+        businessBtn.setOnClickListener { onBusinessBtnClicked() }
     }
 
     private fun configurePictures() {
@@ -188,6 +191,10 @@ class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, Sup
         )
 
         dialog.show(parentFragmentManager, GivolDialog.TAG)
+    }
+
+    private fun onBusinessBtnClicked() {
+        navigator.replace(BusinessDetailsScreen(transferInfo))
     }
 
     /**

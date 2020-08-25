@@ -3,8 +3,10 @@ package com.givol.di
 import android.content.Context
 import android.content.SharedPreferences
 import com.givol.R
+import com.givol.fragments.businessDetails.BusinessDetailsViewModel
 import com.givol.fragments.contestDetails.ContestDetailsViewModel
 import com.givol.fragments.main.MainViewModel
+import com.givol.managers.BusinessFirebaseManager
 import com.givol.model.User
 import com.givol.navigation.ActivityNavigator
 import com.givol.navigation.FragmentNavigator
@@ -33,6 +35,7 @@ val navigatorModule = module {
 val viewModelsModule = module {
      viewModel { MainViewModel(get(), get(), get()) }
      viewModel { ContestDetailsViewModel(get(), get()) }
+     viewModel { BusinessDetailsViewModel(get(), get()) }
 }
 
 val errorModule = module {
@@ -42,6 +45,7 @@ val errorModule = module {
 val managers = module {
     single { ContestsFirebaseManager }
     single { UserFirebaseManager }
+    single { BusinessFirebaseManager }
 }
 
 val utils = module {

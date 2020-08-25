@@ -52,6 +52,7 @@
     <string name="contest_began">ההגרלה החלה!</string>
 
     <!-- Content details screen -->
+    <string name="business_details">פרטי העסק</string>
     <string name="register_to_contest">השתתפות</string>
     <string name="un_register_to_contest">ביטול השתתפות</string>
     <string name="non_eligibility_dialog_title">הרשמה להגרלה נדחתה</string>

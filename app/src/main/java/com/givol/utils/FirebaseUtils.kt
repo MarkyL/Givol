@@ -7,13 +7,12 @@ import com.google.firebase.database.FirebaseDatabase
 
 object FirebaseUtils {
 
-    fun getFirebaseDatabase(): DatabaseReference {
+    private fun getFirebaseDatabase(): DatabaseReference {
         return FirebaseDatabase.getInstance().reference
     }
 
     //region contests node related
-
-    fun getFirebaseContestsNodeReference(): DatabaseReference {
+    private fun getFirebaseContestsNodeReference(): DatabaseReference {
         return getFirebaseDatabase().child(PARAM_CONTEST)
     }
 
@@ -43,7 +42,16 @@ object FirebaseUtils {
     fun getUserFinishedContestNodeReference(uid: String): DatabaseReference {
         return getFirebaseUserNodeReference(uid).child(PARAM_CONTEST).child(PARAM_FINISHED_CONTEST)
     }
+    //endregion
 
+    //region business node related
+    fun getBusinessesNodeReference(): DatabaseReference {
+        return getFirebaseDatabase().child(PARAM_BUSINESS)
+    }
+
+    fun getBusinessNodeReference(bid: String): DatabaseReference {
+        return getBusinessesNodeReference().child(bid)
+    }
     //endregion
 
     // params for db data fetching.
@@ -53,5 +61,6 @@ object FirebaseUtils {
     const val PARAM_FINISHED_CONTEST = "finished"
     const val PARAM_WON_CONTEST = "won"
     const val PARAM_USERS = "users"
+    const val PARAM_BUSINESS = "businesses"
 
 }
