@@ -17,37 +17,35 @@ object ContestsFirebaseManager : KoinComponent {
     private val fbUtil: FirebaseUtils by inject()
 
     // Contests
-    val contestsLiveData = MutableLiveData<List<FBContest>>()
-    private val contestsListener: ValueEventListener
+    val contestsLiveData = MutableLiveData<HashMap<String, FBContest>>()
+    private val activeContestsListener: ValueEventListener
     private val contestsReference: DatabaseReference
 
     init {
-        contestsListener =
-            createContestsListener()
+        activeContestsListener =
+            createActiveContestsListener()
         contestsReference =
             FirebaseUtils.getFirebaseActiveContestsNodeReference()
     }
 
     //region Contests
-    private fun createContestsListener(): ValueEventListener {
+    private fun createActiveContestsListener(): ValueEventListener {
         return object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 Timber.i("getFirebaseActiveContestsNodeReference onDataChange - $snapshot")
-                val fbContestList = mutableListOf<FBContest>()
-                for (childSnapShot in snapshot.children) {
-                    val element = childSnapShot.getValue(FBContest::class.java)
-                    element?.let {
-                        fbContestList.add(element)
-                    }
-                }
-                Timber.i("fbContestsList = $fbContestList")
+                val fbContestMap = snapshot.value as HashMap<String, FBContest>//hashMapOf<String, FBContest>()
+//                for (childSnapShot in snapshot.children) {
+//                    val element = childSnapShot.getValue(FBContest::class.java)
+//                    element?.let {
+//                        fbContestMap.add(element)
+//                    }
+//                }
+                Timber.i("fbContestsList = $fbContestMap")
 
-                inflateContestListWithDates(
-                    fbContestList
-                )
-                val sortedContestsByDate = fbContestList.sortedBy { it.times.dateStart }
-
-                contestsLiveData.value = sortedContestsByDate
+                inflateContestListWithDates(fbContestMap)
+                //val sortedContestsByDate = fbContestMap.sortedBy { it.times.dateStart }
+//
+                contestsLiveData.value = fbContestMap
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -56,22 +54,22 @@ object ContestsFirebaseManager : KoinComponent {
         }
     }
 
-    private fun inflateContestListWithDates(contestList: MutableList<FBContest>) {
-        for (contest in contestList) {
-            val start = contest.times.dateStartStr
+    private fun inflateContestListWithDates(contestsMap: HashMap<String, FBContest>) {
+        for (contest in contestsMap) {
+            val start = contest.value.times.dateStartStr
             DateTimeHelper.getDateFormat(start)?.let {
-                contest.times.dateStart = it
+                contest.value.times.dateStart = it
             }
 
-            val end = contest.times.dateEndStr
+            val end = contest.value.times.dateEndStr
             DateTimeHelper.getDateFormat(end)?.let {
-                contest.times.dateEnd = it
+                contest.value.times.dateEnd = it
             }
         }
     }
 
     fun addSingleContestListener() {
-        contestsReference.addListenerForSingleValueEvent(contestsListener)
+        contestsReference.addListenerForSingleValueEvent(activeContestsListener)
     }
 
     //endregion

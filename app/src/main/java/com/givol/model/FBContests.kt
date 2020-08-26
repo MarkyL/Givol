@@ -4,6 +4,10 @@ import com.google.firebase.database.Exclude
 import com.google.firebase.database.PropertyName
 import java.util.*
 
+data class FBContests(
+    @PropertyName("active") var active: HashMap<String, FBContest> = hashMapOf(),
+    @PropertyName("finished") var finished: HashMap<String, FBContest> = hashMapOf())
+
 data class FBContest(
     @get:PropertyName("contest_id") @set:PropertyName("contest_id")
     var contestID: String = "",

@@ -73,8 +73,10 @@ class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBac
 
     private fun getContests() {
         showProgressView()
-        viewModel.getContests().observe(this, Observer<List<FBContest>> {
-            contestsAdapter.submitList(it)
+        viewModel.getContests().observe(this, Observer<HashMap<String, FBContest>> { map ->
+            val sortedContestsByDate = map.values.toList().sortedBy {
+                it.times.dateStart }
+            contestsAdapter.submitList(sortedContestsByDate)
             hideProgressView()
         })
     }

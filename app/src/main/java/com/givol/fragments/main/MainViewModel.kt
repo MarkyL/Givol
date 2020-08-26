@@ -23,7 +23,7 @@ class MainViewModel constructor(
         }
     }
 
-    fun getContests(): MutableLiveData<List<FBContest>> {
+    fun getContests(): MutableLiveData<HashMap<String, FBContest>> {
         contestManager.addSingleContestListener()
         return contestManager.contestsLiveData
     }
