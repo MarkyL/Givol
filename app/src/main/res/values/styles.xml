@@ -13,7 +13,6 @@
         <item name="android:textColorHint">@android:color/holo_red_dark</item>
         <item name="android:gravity">start</item>
         <item name="android:layout_marginStart">@dimen/min_margin_start</item>
-        <item name="android:textDirection">rtl</item>
     </style>
 
     <style name="MyTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">

@@ -19,7 +19,6 @@ import com.givol.model.FBUser
 import com.givol.model.User.Companion.MAX_CONTESTS_REGISTRATION
 import com.givol.navigation.arguments.TransferInfo
 import com.givol.screens.BusinessDetailsScreen
-import com.givol.screens.ContestDetailsScreen
 import com.givol.utils.DateTimeHelper
 import com.givol.utils.GlideApp
 import com.givol.widgets.GivolToolbar
@@ -93,7 +92,7 @@ class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, Sup
 
     private fun configureTexts() {
         participantsTv.text = resources.getString(
-            R.string.participants_data, contest.participantsIdList.size, contest.minParticipants)
+            R.string.participants_data, contest.participantsMap.size, contest.minParticipants)
         amountTv.text = resources.getString(R.string.amount_data, contest.prizes.primary.value)
 
         with(contest.details) {
@@ -165,7 +164,6 @@ class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, Sup
 
     private fun getUserData() {
         mainViewModel.getUserData(transferInfo.uid).observe(viewLifecycleOwner, Observer<FBUser> {
-            Timber.i("mark - checkStatus = $it")
             transferInfo.user = it
         })
     }
@@ -206,5 +204,13 @@ class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, Sup
 
     private fun toggleUserRegistrationState(isRegistered: Boolean) {
         this.isUserRegistered = isRegistered
+    }
+
+    override fun showProgressView() {
+        TODO("Not yet implemented")
+    }
+
+    override fun hideProgressView() {
+        TODO("Not yet implemented")
     }
 }

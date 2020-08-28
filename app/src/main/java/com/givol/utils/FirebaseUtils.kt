@@ -59,7 +59,6 @@ object FirebaseUtils {
     const val PARAM_CONTEST = "contests"
     const val PARAM_ACTIVE_CONTEST = "active"
     const val PARAM_FINISHED_CONTEST = "finished"
-    const val PARAM_WON_CONTEST = "won"
     const val PARAM_USERS = "users"
     const val PARAM_BUSINESS = "businesses"
 

@@ -45,15 +45,17 @@
     <string name="participants_data">%d/%d</string>
     <string name="due_date_title">מועד סיום:</string>
     <string name="amount_title">שווי ההגרלה:</string>
+    <string name="contest_winning_state_title">מצב הגרלה:</string>
     <string name="amount_data">%d ₪</string>
 
     <!-- Content description -->
     <string name="contest_image_description">תמונת תחרות</string>
     <string name="contest_began">ההגרלה החלה!</string>
 
-    <!-- Content details screen -->
+    <!-- Contest details screen -->
     <string name="business_details">פרטי העסק</string>
     <string name="register_to_contest">השתתפות</string>
+    <string name="use_contest_reward">מימוש</string>
     <string name="un_register_to_contest">ביטול השתתפות</string>
     <string name="non_eligibility_dialog_title">הרשמה להגרלה נדחתה</string>
     <string name="non_eligibility_dialog_subtitle">כל משתמש זכאי להירשם לעד %d הגרלות בכל רגע.</string>

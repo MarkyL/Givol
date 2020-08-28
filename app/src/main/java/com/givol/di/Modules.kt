@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import com.givol.R
 import com.givol.fragments.businessDetails.BusinessDetailsViewModel
 import com.givol.fragments.contestDetails.ContestDetailsViewModel
+import com.givol.fragments.finishedContests.FinishedContestsViewModel
 import com.givol.fragments.main.MainViewModel
 import com.givol.managers.BusinessFirebaseManager
 import com.givol.model.User
@@ -36,6 +37,7 @@ val viewModelsModule = module {
      viewModel { MainViewModel(get(), get(), get()) }
      viewModel { ContestDetailsViewModel(get(), get()) }
      viewModel { BusinessDetailsViewModel(get(), get()) }
+     viewModel { FinishedContestsViewModel(get(), get(), get()) }
 }
 
 val errorModule = module {

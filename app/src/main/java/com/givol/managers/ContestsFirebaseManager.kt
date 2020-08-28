@@ -18,14 +18,22 @@ object ContestsFirebaseManager : KoinComponent {
 
     // Contests
     val contestsLiveData = MutableLiveData<List<FBContest>>()
+    val finishedContestLiveData = MutableLiveData<List<FBContest>>()
     private val contestsListener: ValueEventListener
-    private val contestsReference: DatabaseReference
+    private val finishedContestListener: ValueEventListener
+    private val activeContestsReference: DatabaseReference
+    private val finishedContestsReference: DatabaseReference
 
     init {
         contestsListener =
             createContestsListener()
-        contestsReference =
+        activeContestsReference =
             FirebaseUtils.getFirebaseActiveContestsNodeReference()
+
+        finishedContestListener =
+            createFinishedContestListener()
+        finishedContestsReference =
+            FirebaseUtils.getFirebaseFinishedContestsNodeReference()
     }
 
     //region Contests
@@ -33,25 +41,40 @@ object ContestsFirebaseManager : KoinComponent {
         return object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 Timber.i("getFirebaseActiveContestsNodeReference onDataChange - $snapshot")
-                val fbContestList = mutableListOf<FBContest>()
-                for (childSnapShot in snapshot.children) {
-                    val element = childSnapShot.getValue(FBContest::class.java)
-                    element?.let {
-                        fbContestList.add(element)
-                    }
-                }
-                Timber.i("fbContestsList = $fbContestList")
-
-                inflateContestListWithDates(
-                    fbContestList
-                )
-                val sortedContestsByDate = fbContestList.sortedBy { it.times.dateStart }
-
-                contestsLiveData.value = sortedContestsByDate
+                //val sortedContestsByDate = getContestListSortedFromSnapshot(snapshot)
+                contestsLiveData.value = getContestListSortedFromSnapshot(snapshot)//sortedContestsByDate
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Timber.e(error.toException(), "Failed to getData from documents")
+                Timber.e(error.toException(), "Failed to getData from contests")
+            }
+        }
+    }
+
+    private fun getContestListSortedFromSnapshot(snapshot: DataSnapshot): List<FBContest> {
+        val fbContestList = mutableListOf<FBContest>()
+        for (childSnapShot in snapshot.children) {
+            val element = childSnapShot.getValue(FBContest::class.java)
+            element?.let {
+                fbContestList.add(element)
+            }
+        }
+        Timber.i("fbContestsList = $fbContestList")
+
+        inflateContestListWithDates(
+            fbContestList
+        )
+        return fbContestList.sortedBy { it.times.dateStart }
+    }
+
+    private fun createFinishedContestListener(): ValueEventListener {
+        return object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                finishedContestLiveData.value = getContestListSortedFromSnapshot(snapshot)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Timber.e(error.toException(), "Failed to getData from finished contest")
             }
         }
     }
@@ -71,7 +94,15 @@ object ContestsFirebaseManager : KoinComponent {
     }
 
     fun addSingleContestListener() {
-        contestsReference.addListenerForSingleValueEvent(contestsListener)
+        activeContestsReference.addListenerForSingleValueEvent(contestsListener)
+    }
+
+    fun addSingleFinishedContestListener() {
+        finishedContestsReference.addListenerForSingleValueEvent(finishedContestListener)
+    }
+
+    fun addSingleFinishedContestListenerByID(contestId: String) {
+        finishedContestsReference.child(contestId).addListenerForSingleValueEvent(finishedContestListener)
     }
 
     //endregion

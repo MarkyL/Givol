@@ -37,10 +37,7 @@
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/promotion_pager_height"
-                android:layout_marginTop="@dimen/_6sdp"
                 android:clipToPadding="false"
-                android:paddingLeft="@dimen/_8sdp"
-                android:paddingRight="@dimen/_8sdp"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.givol.widgets.GivolTextView
@@ -85,6 +82,7 @@
                 android:layout_marginRight="@dimen/_16sdp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/_16sdp"
+                android:textDirection="ltr"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/actionBtn"
                 tools:text="12:30:24" />

@@ -109,6 +109,9 @@ abstract class GivolFragment : Fragment(), GivolToolbar.ActionListener, Supports
         return true
     }
 
+    abstract fun showProgressView()
+    abstract fun hideProgressView()
+
     companion object {
         private const val ARGUMENTS = "arguments"
     }

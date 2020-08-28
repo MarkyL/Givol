@@ -27,8 +27,7 @@ class BusinessDetailsFragment : GivolFragment(), GivolToolbar.ActionListener,
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_business_details, container, false)
     }
 
@@ -65,6 +64,14 @@ class BusinessDetailsFragment : GivolFragment(), GivolToolbar.ActionListener,
 
     private fun configureTexts() {
         tempTxt.text = business.website
+    }
+
+    override fun showProgressView() {
+        TODO("Not yet implemented")
+    }
+
+    override fun hideProgressView() {
+        TODO("Not yet implemented")
     }
 
 }

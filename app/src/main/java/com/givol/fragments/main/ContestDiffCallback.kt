@@ -27,7 +27,7 @@ class ContestDiffCallback(private var oldList : List<FBContest>, private var new
         val newItem = newList[newItemPosition]
 
         return oldItem.businessID == newItem.businessID
-                && newItem.participantsIdList.size == oldItem.participantsIdList.size
+                && newItem.participantsMap.size == oldItem.participantsMap.size
                 && newItem.prizes == oldItem.prizes
     }
 }

@@ -74,6 +74,7 @@ class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBac
     private fun getContests() {
         showProgressView()
         viewModel.getContests().observe(this, Observer<List<FBContest>> {
+            //TODO filter out the lists that i already am participating in.
             contestsAdapter.submitList(it)
             hideProgressView()
         })
@@ -81,7 +82,6 @@ class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBac
 
     private fun getUserData() {
         viewModel.getUserData(transferInfo.uid).observe(viewLifecycleOwner, Observer<FBUser> {
-            Timber.i("mark - checkStatus = $it")
             transferInfo.user = it
         })
     }
@@ -139,11 +139,12 @@ class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBac
         return false
     }
 
-    private fun showProgressView() {
+
+    override fun showProgressView() {
         progressBar.visibility = View.VISIBLE
     }
 
-    private fun hideProgressView() {
+    override fun hideProgressView() {
         progressBar.visibility = View.GONE
     }
 

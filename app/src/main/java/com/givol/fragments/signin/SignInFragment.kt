@@ -189,6 +189,14 @@ class SignInFragment: GivolFragment() {
         navigator.replace(MainScreen(transferInfo))
     }
 
+    override fun showProgressView() {
+        TODO("Not yet implemented")
+    }
+
+    override fun hideProgressView() {
+        TODO("Not yet implemented")
+    }
+
     companion object {
         private const val TAG = "SignInFragment"
         private const val EMAIL_SUFFIX = "@Givol.com"

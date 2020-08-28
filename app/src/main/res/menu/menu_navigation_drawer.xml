@@ -4,15 +4,15 @@
     <group
         android:id="@+id/grp_1"
         android:checkableBehavior="single">
-        <item
-            android:id="@+id/navActiveContest"
-            android:icon="@drawable/ic_web_black_24dp"
-            android:title="@string/active_contest" />
+<!--        <item-->
+<!--            android:id="@+id/navActiveContest"-->
+<!--            android:icon="@drawable/ic_web_black_24dp"-->
+<!--            android:title="@string/active_contest" />-->
 
         <item
-            android:id="@+id/navWonContest"
+            android:id="@+id/navTest"
             android:icon="@drawable/ic_web_black_24dp"
-            android:title="@string/won_contest" />
+            android:title="הרצת בדיקת סוף תחרות" />
 
         <item
             android:id="@+id/navFinishedContest"

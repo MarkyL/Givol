@@ -18,7 +18,7 @@ admin.initializeApp();
  // exports.runContests = functions.pubsub.schedule('every day 21:00').onRun(async contest => {
     // Fetch all contests
     // const activeContests = await getActiveContests();
-    
+
  // });
 
  // /**
@@ -27,12 +27,12 @@ admin.initializeApp();
   // async function getActiveContests(activeContests = []) {
     // const result = await admin.auth().
   // }
-  
+
 // Listens for new contests added to /contests/active and creates an
 // uppercase version of the contest to /contests/active/uppercase
 exports.makeUppercase = functions.database.ref('/contests/active')
     .onCreate((snapshot, context) => {
-	  functions.logger.info("makeUppercase trigerred!!!", {structuredData: true});
+      functions.logger.info("makeUppercase trigerred!!!", {structuredData: true});
       // Grab the current value of what was written to the Realtime Database.
       const original = snapshot.val();
 
@@ -43,3 +43,5 @@ exports.makeUppercase = functions.database.ref('/contests/active')
       // Setting an "uppercase" sibling in the Realtime Database returns a Promise.
       return snapshot.ref.parent.child('markTest').set(uppercase);
     });
+
+

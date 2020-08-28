@@ -3,6 +3,7 @@ package com.givol.model
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.PropertyName
 import java.util.*
+import kotlin.collections.HashMap
 
 data class FBContest(
     @get:PropertyName("contest_id") @set:PropertyName("contest_id")
@@ -21,7 +22,7 @@ data class FBContest(
     var minParticipants: Long = 0,
 
     @get:PropertyName("participants") @set:PropertyName("participants")
-    var participantsIdList: List<String> = listOf(),
+    var participantsMap: HashMap<String, UserContest> = hashMapOf(),
 
     @PropertyName("details") var details: ContestDetails = ContestDetails(),
     @PropertyName("logo") var logo: String = "",
@@ -72,3 +73,9 @@ class ContestDetails(
     var titleThree: String = "",
 
     @PropertyName("pictures") var pictures: List<String> = listOf())
+
+enum class CONTEST_WIN_STATE {
+    @PropertyName("NONE") NONE,
+    @PropertyName("WIN") WIN,
+    @PropertyName("COLDONSENSE") COLDONSENSE
+}

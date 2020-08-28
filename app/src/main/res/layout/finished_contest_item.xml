@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_gray"
+    android:elevation="@dimen/_8sdp"
+    app:cardCornerRadius="@dimen/_8sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/logoIV"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_100sdp"
+            android:padding="@dimen/_8sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:src="@color/gray_background_light"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.givol.widgets.GivolTextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:textStyle="bold"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/logoIV"
+            tools:text="מוזס" />
+
+        <com.givol.widgets.HorizontalTextualDataView
+            android:id="@+id/dueDateTextualView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textDirection="rtl"
+            app:layout_constraintRight_toRightOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:title_text="@string/due_date_title" />
+
+        <com.givol.widgets.HorizontalTextualDataView
+            android:id="@+id/amountTextualView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textDirection="rtl"
+            app:layout_constraintRight_toRightOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/dueDateTextualView"
+            app:title_text="@string/amount_title" />
+
+        <com.givol.widgets.HorizontalTextualDataView
+            android:id="@+id/contestStateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textDirection="rtl"
+            app:layout_constraintRight_toRightOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/amountTextualView"
+            app:title_text="@string/contest_winning_state_title" />
+
+        <Button
+            android:id="@+id/actionBtn"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_32sdp"
+            app:layout_constraintTop_toTopOf="@id/title"
+            app:layout_constraintBottom_toBottomOf="@id/contestStateTextView"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:text="@string/use_contest_reward"
+            android:visibility="gone"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

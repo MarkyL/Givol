@@ -2,7 +2,6 @@ package com.givol.adapters
 
 import android.view.View
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.givol.R
@@ -12,9 +11,14 @@ import com.givol.utils.GlideApp
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.contest_item.view.*
 import kotlinx.android.synthetic.main.horizontal_textual_data_layout.view.*
+import timber.log.Timber
 
 
-class ContestsAdapter(listener: AdapterListener<FBContest>) : BaseAdapter<FBContest>(listener) {
+class ContestsAdapter() : BaseAdapter<FBContest>() {
+
+    constructor(listener: AdapterListener<FBContest>) : this() {
+        this.listener = listener
+    }
 
     init {
         setAnimationType(0)
@@ -29,6 +33,7 @@ class ContestsAdapter(listener: AdapterListener<FBContest>) : BaseAdapter<FBCont
     }
 
     override fun submitList(listItems: List<FBContest>) {
+        Timber.i("mark - submitlist - ${listItems.size}")
         val diffResult =
             DiffUtil.calculateDiff(ContestDiffCallback(this.items, listItems))
         this.items.clear()
@@ -45,7 +50,7 @@ class ContestItemViewHolder constructor(override val containerView: View) :
             title.text = data.businessName
             participantsTextualView.dataTv.text =
                 resources.getString(R.string.participants_data,
-                    data.participantsIdList.size, data.minParticipants)
+                    data.participantsMap.size, data.minParticipants)
             dueDateTextualView.dataTv.text = data.times.dateEndStr
             amountTextualView.dataTv.text =
                 resources.getString(R.string.amount_data, data.prizes.primary.value)

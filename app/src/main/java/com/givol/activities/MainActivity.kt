@@ -9,6 +9,7 @@ import com.givol.core.GivolActivity
 import com.givol.core.GivolFragment
 import com.givol.core.SupportsOnBackPressed
 import com.givol.navigation.arguments.TransferInfo
+import com.givol.screens.FinishedContestsScreen
 import com.givol.screens.MainScreen
 import com.givol.screens.SignInScreen
 import com.google.firebase.auth.FirebaseAuth
@@ -20,6 +21,7 @@ import timber.log.Timber
 class MainActivity : GivolActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var uid: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +42,7 @@ class MainActivity : GivolActivity() {
     private fun updateUI(currentUser: FirebaseUser?) {
         currentUser?.let {
             // user is already logged in.
+            this.uid = it.uid
             val transferInfo = TransferInfo()
             transferInfo.uid = it.uid
             navigator.replace(MainScreen(transferInfo))
@@ -87,14 +90,23 @@ class MainActivity : GivolActivity() {
             Timber.i("$TAG -  onNavigationItemSelected - ${item.title}")
 
             when (item.itemId) {
-                R.id.navActiveContest -> {
-                    //TODO("onNavigationItemSelected")
+                R.id.navFinishedContest -> {
+                    val transferInfo = TransferInfo()
+                    transferInfo.uid = this.uid
+                    navigator.replace(FinishedContestsScreen(transferInfo))
+                }
+                R.id.navTest -> {
+                    makeMockTestForFinishedContest()
                 }
             }
             drawerLayout.closeDrawers()
 
             true
         }
+    }
+
+    private fun makeMockTestForFinishedContest() {
+
     }
 
     fun setDrawerState(currentFragment: GivolFragment) {
