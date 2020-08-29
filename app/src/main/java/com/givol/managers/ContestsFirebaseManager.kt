@@ -105,5 +105,13 @@ object ContestsFirebaseManager : KoinComponent {
         finishedContestsReference.child(contestId).addListenerForSingleValueEvent(finishedContestListener)
     }
 
+    fun useContestReward(uid: String, fbContest: FBContest) {
+        // Update user's contest to value - used = true.
+        fbUtil.getUserFinishedContestNodeReference(uid).child(fbContest.contestID).setValue(fbContest)
+
+        finishedContestsReference.child(fbContest.contestID).child("participants")
+            .child(uid).child("used").setValue(true)
+    }
+
     //endregion
 }

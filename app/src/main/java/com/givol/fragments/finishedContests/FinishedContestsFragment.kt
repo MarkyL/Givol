@@ -1,6 +1,7 @@
 package com.givol.fragments.finishedContests
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +12,12 @@ import com.givol.adapters.FinishedContestsAdapter
 import com.givol.core.Action
 import com.givol.core.GivolFragment
 import com.givol.core.SupportsOnBackPressed
+import com.givol.dialogs.AbstractDialog
 import com.givol.dialogs.GivolDialog
 import com.givol.managers.UserFirebaseManager
 import com.givol.model.FBContest
 import com.givol.model.FBUser
+import com.givol.model.User
 import com.givol.model.UserContest
 import com.givol.navigation.arguments.TransferInfo
 import com.givol.utils.GridSpacingItemDecoration
@@ -23,6 +26,10 @@ import kotlinx.android.synthetic.main.fragment_finished_contests.*
 import kotlinx.android.synthetic.main.givol_toolbar.view.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
+import java.util.*
+import kotlin.collections.HashMap
+import kotlin.concurrent.timerTask
 
 class FinishedContestsFragment : GivolFragment(), GivolToolbar.ActionListener,
     SupportsOnBackPressed, BaseAdapter.AdapterListener<FBContest> {
@@ -115,14 +122,26 @@ class FinishedContestsFragment : GivolFragment(), GivolToolbar.ActionListener,
     }
 
     override fun onItemClick(data: FBContest) {
-        data.participantsMap[transferInfo.uid]?.let {
-            if (!it.used) {
-                // need to use the coupon --> write on users/ and contests/ that it's true.
-                // then change then hide button + update "מצב הגרלה" text.
+        if (data.used) return
 
-            }
-        }
+        val dialog = GivolDialog(
+            title = resources.getString(R.string.use_contest_reward_title),
+            subtitle = resources.getString(R.string.use_contest_reward_subtitle),
+            positiveButtonText = R.string.use_contest_reward_positive,
+            negativeButtonText = R.string.use_contest_reward_negative,
+            iconDrawable = R.drawable.ic_warning_black,
+            callback = object : AbstractDialog.Callback {
+                override fun onDialogPositiveAction(requestCode: Int) {
+                    data.used = true
+                    viewModel.useContestReward(transferInfo.uid, data)
+                    getFinishedContests()
+                }
+
+                override fun onDialogNegativeAction(requestCode: Int) {
+                    Timber.i("onDialogNegativeAction")
+                }
+            })
+
+        dialog.show(parentFragmentManager, GivolDialog.TAG)
     }
-
-
 }

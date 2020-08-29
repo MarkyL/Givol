@@ -66,13 +66,14 @@
 
         <Button
             android:id="@+id/actionBtn"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_32sdp"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_20sdp"
             app:layout_constraintTop_toTopOf="@id/title"
             app:layout_constraintBottom_toBottomOf="@id/contestStateTextView"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="@dimen/_8sdp"
             android:text="@string/use_contest_reward"
+            android:textSize="@dimen/_14sdp"
             android:visibility="gone"
             />
 

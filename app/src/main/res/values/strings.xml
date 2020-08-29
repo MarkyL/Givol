@@ -64,4 +64,9 @@
     <string name="no_contests_title">אין תחרויות עבר</string>
     <string name="no_contests_subtitle">על מנת לראות תחרויות שהסתיימו, תחילה צריך להירשם לאחת :)</string>
 
+    <string name="use_contest_reward_title">מימוש קופון תחרות</string>
+    <string name="use_contest_reward_subtitle">האם לממש פרס התחרות?</string>
+    <string name="use_contest_reward_positive">מימוש</string>
+    <string name="use_contest_reward_negative">עוד לא</string>
+
 </resources>

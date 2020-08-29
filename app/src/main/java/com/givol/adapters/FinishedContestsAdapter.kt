@@ -49,8 +49,7 @@ class FinishedContestsAdapter() : BaseAdapter<FBContest>() {
 
 class FinishedContestItemViewHolder(
     override val containerView: View,
-    private val userFinishedContests: HashMap<String, FBContest>
-) :
+    private val userFinishedContests: HashMap<String, FBContest>) :
     RecyclerView.ViewHolder(containerView), LayoutContainer, BaseAdapter.Binder<FBContest> {
 
     override fun bind(data: FBContest) {
@@ -59,21 +58,20 @@ class FinishedContestItemViewHolder(
             dueDateTextualView.dataTv.text = data.times.dateEndStr
 
             userFinishedContests[data.contestID]?.let {
-                if (it.used) {
-                    contestStateTextView.dataTv.text = "מימשתי"
-                } else {
+                if (!it.used) {
                     actionBtn.visibility = View.VISIBLE
+                    actionBtn.setOnClickListener { containerView.callOnClick() }
+                }
 
-                    when (it.contestStateEnum) {
-                        CONTEST_WIN_STATE.NONE -> TODO()
-                        CONTEST_WIN_STATE.WIN -> {
-                            setPrizeAmountText(true, data)
-                            contestStateTextView.dataTv.text = "זכיתי"
-                        }
-                        CONTEST_WIN_STATE.COLDONSENSE -> {
-                            setPrizeAmountText(false, data)
-                            contestStateTextView.dataTv.text = "קיבלתי פרס"
-                        }
+                when (it.contestStateEnum) {
+                    CONTEST_WIN_STATE.NONE -> TODO()
+                    CONTEST_WIN_STATE.WIN -> {
+                        setPrizeAmountText(true, data)
+                        contestStateTextView.dataTv.text = if (it.used) "מימשתי" else "זכיתי"
+                    }
+                    CONTEST_WIN_STATE.COLDONSENSE -> {
+                        setPrizeAmountText(false, data)
+                        contestStateTextView.dataTv.text = if (it.used) "מימשתי" else "קיבלתי פרס"
                     }
                 }
             }

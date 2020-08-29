@@ -30,6 +30,10 @@ class FinishedContestsViewModel constructor(
         return contestManager.finishedContestLiveData
     }
 
+    fun useContestReward(uid: String, data: FBContest) {
+        contestManager.useContestReward(uid, data)
+    }
+
 //    fun getContestDataByID(contestId: String): MutableLiveData<FBContest> {
 //        Timber.i("mark getContestDataByID - $contestId")
 //        contestManager.addSingleFinishedContestListenerByID(contestId)
