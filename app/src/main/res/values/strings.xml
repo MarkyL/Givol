@@ -60,4 +60,8 @@
     <string name="non_eligibility_dialog_title">הרשמה להגרלה נדחתה</string>
     <string name="non_eligibility_dialog_subtitle">כל משתמש זכאי להירשם לעד %d הגרלות בכל רגע.</string>
 
+    <!-- Finished contests screen -->
+    <string name="no_contests_title">אין תחרויות עבר</string>
+    <string name="no_contests_subtitle">על מנת לראות תחרויות שהסתיימו, תחילה צריך להירשם לאחת :)</string>
+
 </resources>

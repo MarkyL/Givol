@@ -9,7 +9,6 @@ import com.givol.fragments.main.ContestDiffCallback
 import com.givol.model.CONTEST_WIN_STATE
 import com.givol.model.FBContest
 import com.givol.model.User
-import com.givol.model.UserContest
 import com.givol.utils.GlideApp
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.finished_contest_item.view.*
@@ -22,7 +21,7 @@ class FinishedContestsAdapter() : BaseAdapter<FBContest>() {
         this.listener = listener
     }
 
-    lateinit var userFinishedContests: HashMap<String, UserContest>
+    lateinit var userFinishedContests: HashMap<String, FBContest>
 
     var uid: String
 
@@ -48,7 +47,10 @@ class FinishedContestsAdapter() : BaseAdapter<FBContest>() {
     }
 }
 
-class FinishedContestItemViewHolder(override val containerView: View, private val userFinishedContests: HashMap<String, UserContest>) :
+class FinishedContestItemViewHolder(
+    override val containerView: View,
+    private val userFinishedContests: HashMap<String, FBContest>
+) :
     RecyclerView.ViewHolder(containerView), LayoutContainer, BaseAdapter.Binder<FBContest> {
 
     override fun bind(data: FBContest) {

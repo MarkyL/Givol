@@ -11,6 +11,8 @@ import com.givol.adapters.FinishedContestsAdapter
 import com.givol.core.Action
 import com.givol.core.GivolFragment
 import com.givol.core.SupportsOnBackPressed
+import com.givol.dialogs.GivolDialog
+import com.givol.managers.UserFirebaseManager
 import com.givol.model.FBContest
 import com.givol.model.FBUser
 import com.givol.model.UserContest
@@ -19,6 +21,7 @@ import com.givol.utils.GridSpacingItemDecoration
 import com.givol.widgets.GivolToolbar
 import kotlinx.android.synthetic.main.fragment_finished_contests.*
 import kotlinx.android.synthetic.main.givol_toolbar.view.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FinishedContestsFragment : GivolFragment(), GivolToolbar.ActionListener,
@@ -69,32 +72,31 @@ class FinishedContestsFragment : GivolFragment(), GivolToolbar.ActionListener,
         showProgressView()
         viewModel.getUserFinishedContests(transferInfo.uid)
             .observe(viewLifecycleOwner, Observer<FBUser> {
+                hideProgressView()
                 onUserDataFetched(it)
             })
     }
 
     private fun onUserDataFetched(fbUser: FBUser) {
         val userFinishedContests = fbUser.contests.finished
-
         finishedContestsAdapter.userFinishedContests = userFinishedContests
-        viewModel.getFinishedContests()
-            .observe(viewLifecycleOwner, Observer<List<FBContest>> {
-                hideProgressView()
 
-                createUserFinishedFBContests(userFinishedContests, it)
-            })
+        if (userFinishedContests.isEmpty()) {
+            showNoFinishedContests()
+        }
 
+        finishedContestsAdapter.submitList(userFinishedContests.values.toList())
 
-//        fbUser.contests.finished.entries.forEach { entry ->
-//            viewModel.getContestDataByID(entry.key)
-//                .observe(viewLifecycleOwner, Observer<FBContest> {
-//                    contestsList.add(it)
-//                    contestsAdapter.submitList(contestsList)
-//                })
-//        }
     }
 
-    private fun createUserFinishedFBContests(userFinishedContests: HashMap<String, UserContest>, fbContests: List<FBContest>) {
+    private fun showNoFinishedContests() {
+        emptyStateTV.visibility = View.VISIBLE
+    }
+
+    private fun createUserFinishedFBContests(
+        userFinishedContests: HashMap<String, UserContest>,
+        fbContests: List<FBContest>
+    ) {
         val list = mutableListOf<FBContest>()
         fbContests.forEach { fbContest ->
             if (userFinishedContests.containsKey(fbContest.contestID)) {

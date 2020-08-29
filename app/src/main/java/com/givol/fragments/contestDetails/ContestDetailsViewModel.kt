@@ -1,9 +1,8 @@
 package com.givol.fragments.contestDetails
 
 import android.app.Application
-import androidx.lifecycle.MutableLiveData
 import com.givol.managers.UserFirebaseManager
-import com.givol.model.FBUser
+import com.givol.model.FBContest
 import com.givol.mvvm.BaseViewModel
 import com.givol.utils.Event
 import timber.log.Timber
@@ -16,8 +15,8 @@ class ContestDetailsViewModel constructor(
         Timber.i("dispatchScreenEvent: ${event.javaClass.simpleName}")
     }
 
-    fun registerToContest(uid: String, contestID: String) {
-        userFirebaseManager.registerFromContest(uid, contestID)
+    fun registerToContest(uid: String, contest: FBContest) {
+        userFirebaseManager.registerFromContest(uid, contest)
     }
 
     fun unregisterFromContest(uid: String, contestID: String) {

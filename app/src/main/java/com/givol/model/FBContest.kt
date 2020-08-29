@@ -27,7 +27,23 @@ data class FBContest(
     @PropertyName("details") var details: ContestDetails = ContestDetails(),
     @PropertyName("logo") var logo: String = "",
     @PropertyName("times") var times: Times = Times(),
-    @PropertyName("prizes") var prizes: Prizes = Prizes()) {}
+    @PropertyName("prizes") var prizes: Prizes = Prizes(),
+
+    //User specific params
+    @get:PropertyName("contest_state") @set:PropertyName("contest_state")
+    var contestState: String = CONTEST_WIN_STATE.NONE.name,
+    @PropertyName("used") var used: Boolean = false) {
+
+    var contestStateEnum: CONTEST_WIN_STATE = CONTEST_WIN_STATE.valueOf(contestState) //CONTEST_WIN_STATE.NONE
+        get(): CONTEST_WIN_STATE {
+            return when (contestState) {
+                CONTEST_WIN_STATE.NONE.name -> CONTEST_WIN_STATE.NONE
+                CONTEST_WIN_STATE.WIN.name -> CONTEST_WIN_STATE.WIN
+                CONTEST_WIN_STATE.COLDONSENSE.name -> CONTEST_WIN_STATE.COLDONSENSE
+                else -> CONTEST_WIN_STATE.NONE
+            }
+        }
+}
 
 class Prizes(
     @PropertyName("primary") var primary: Prize = Prize(),

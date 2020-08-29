@@ -172,7 +172,7 @@ class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, Sup
         // Check if user is eligible to register to a contest
         if (checkRegistrationEligibility()) {
             actionBtn.text = resources.getString(R.string.un_register_to_contest)
-            viewModel.registerToContest(transferInfo.uid, transferInfo.contest.contestID)
+            viewModel.registerToContest(transferInfo.uid, transferInfo.contest)
             toggleUserRegistrationState(true)
             getUserData()
         } else {

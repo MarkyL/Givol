@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
 import com.givol.R
 import com.givol.core.GivolActivity
 import com.givol.core.GivolFragment
 import com.givol.core.SupportsOnBackPressed
+import com.givol.managers.UserFirebaseManager
 import com.givol.navigation.arguments.TransferInfo
 import com.givol.screens.FinishedContestsScreen
 import com.givol.screens.MainScreen
@@ -16,12 +18,15 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.drawer_header.view.*
+import org.koin.android.ext.android.inject
 import timber.log.Timber
 
 class MainActivity : GivolActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var uid: String
+
+    private val userManager: UserFirebaseManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,7 +111,15 @@ class MainActivity : GivolActivity() {
     }
 
     private fun makeMockTestForFinishedContest() {
-
+        userManager.addSingleContestListener(uid)
+        userManager.userLiveData.observe(this, Observer { user ->
+            user.contests.active.entries.forEach {
+                // let's just move first to finish.
+                it.value.contestState = "WIN"
+                it.value.used = false
+                userManager.moveActiveToFinished(uid, it.value)
+            }
+        })
     }
 
     fun setDrawerState(currentFragment: GivolFragment) {

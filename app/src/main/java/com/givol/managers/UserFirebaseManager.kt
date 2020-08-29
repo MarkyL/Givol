@@ -2,6 +2,7 @@ package com.givol.managers
 
 import androidx.lifecycle.MutableLiveData
 import com.givol.model.CONTEST_WIN_STATE
+import com.givol.model.FBContest
 import com.givol.model.FBUser
 import com.givol.utils.FirebaseUtils
 import com.google.firebase.database.DataSnapshot
@@ -21,8 +22,6 @@ object UserFirebaseManager : KoinComponent {
     private val userListener: ValueEventListener
     private val usersReference: DatabaseReference
 
-    lateinit var uid: String
-
     init {
         userListener = createUserListener()
         usersReference = FirebaseUtils.getFirebaseUsersNodeReference()
@@ -39,7 +38,7 @@ object UserFirebaseManager : KoinComponent {
 //                    snapshot.child(fbUtil.PARAM_CONTEST).child(fbUtil.PARAM_ACTIVE_CONTEST).value?.let { active = it as HashMap<String, UserContest> }
 //                    snapshot.child(fbUtil.PARAM_CONTEST).child(fbUtil.PARAM_FINISHED_CONTEST).value?.let { finished = it as HashMap<String, UserContest> }
 //                }
-                userLiveData.value = snapshot.child(uid).getValue(FBUser::class.java)//userData
+                userLiveData.value = snapshot.getValue(FBUser::class.java)//userData
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -49,20 +48,19 @@ object UserFirebaseManager : KoinComponent {
     }
 
     fun addSingleContestListener(uid: String) {
-//        usersReference.child(uid).addListenerForSingleValueEvent(userListener)
-        this.uid = uid
-        usersReference.addListenerForSingleValueEvent(userListener)
+        usersReference.child(uid).addListenerForSingleValueEvent(userListener)
     }
 
-    fun registerFromContest(uid: String, contestID: String) {
+    fun registerFromContest(uid: String, contest: FBContest) {
         // user tree
-        val userContest = fbUtil.getUserActiveContestNodeReference(uid).child(contestID)
+        val userContest = fbUtil.getUserActiveContestNodeReference(uid).child(contest.contestID)
+        userContest.setValue(contest)
         userContest.child("contest_state").setValue(CONTEST_WIN_STATE.NONE)
         userContest.child("used").setValue(false)
 
         // contest tree
         val currentContestForUser =
-            fbUtil.getFirebaseActiveContestsNodeReference().child(contestID).child("participants")
+            fbUtil.getFirebaseActiveContestsNodeReference().child(contest.contestID).child("participants")
                 .child(uid)
         currentContestForUser.child("contest_state").setValue(CONTEST_WIN_STATE.NONE)
         currentContestForUser.child("used").setValue(false)
@@ -72,6 +70,14 @@ object UserFirebaseManager : KoinComponent {
         fbUtil.getUserActiveContestNodeReference(uid).child(contestID).removeValue()
         fbUtil.getFirebaseActiveContestsNodeReference().child(contestID).child("participants")
             .child(uid).removeValue()
+    }
+
+    fun moveActiveToFinished(uid: String, fbContest: FBContest) {
+        fbUtil.getUserActiveContestNodeReference(uid).child(fbContest.contestID).removeValue()
+        fbUtil.getUserFinishedContestNodeReference(uid).child(fbContest.contestID).setValue(fbContest)
+
+        fbUtil.getFirebaseActiveContestsNodeReference().child(fbContest.contestID).removeValue()
+        fbUtil.getFirebaseFinishedContestsNodeReference().child(fbContest.contestID).setValue(fbContest)
     }
 
     //endregion

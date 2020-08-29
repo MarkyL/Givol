@@ -12,11 +12,12 @@ data class FBUser(
     var email: String = "")
 
 class UserContests(
-    @PropertyName("active") var active: HashMap<String, UserContest> = hashMapOf(),
-    @PropertyName("finished") var finished: HashMap<String, UserContest> = hashMapOf())
+    @PropertyName("active") var active: HashMap<String, FBContest> = hashMapOf(),
+    @PropertyName("finished") var finished: HashMap<String, FBContest> = hashMapOf())
 
 class UserContest(
-    @PropertyName("contest_state") var contestState: String = CONTEST_WIN_STATE.NONE.name,
+    @get:PropertyName("contest_state") @set:PropertyName("contest_state")
+    var contestState: String = CONTEST_WIN_STATE.NONE.name,
     @PropertyName("used") var used: Boolean = false,
     @get:PropertyName("date_end") @set:PropertyName("date_end")
     var dateEndStr: String = "") {
