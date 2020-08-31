@@ -47,4 +47,8 @@ class HorizontalTextualDataView : ConstraintLayout {
         dataTv.text = data
     }
 
+    fun setData(data: String) {
+        dataTv.text = data
+    }
+
 }

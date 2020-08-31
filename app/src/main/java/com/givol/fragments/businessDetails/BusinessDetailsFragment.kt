@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.givol.R
 import com.givol.core.Action
 import com.givol.core.GivolFragment
 import com.givol.core.SupportsOnBackPressed
 import com.givol.model.FBBusiness
 import com.givol.navigation.arguments.TransferInfo
+import com.givol.utils.GlideApp
 import com.givol.widgets.GivolToolbar
 import kotlinx.android.synthetic.main.fragment_business_details.*
 import kotlinx.android.synthetic.main.givol_toolbar.view.*
@@ -36,12 +38,13 @@ class BusinessDetailsFragment : GivolFragment(), GivolToolbar.ActionListener,
 
         transferInfo = castArguments(TransferInfo::class.java)
 
-        //showProgressView()
+        showProgressView()
         viewModel.getBusinessDetails(transferInfo.contest.businessID)
             .observe(viewLifecycleOwner, Observer<FBBusiness> {
                 business = it
+                if (business.id == "") { onBackPressed() }
                 configureScreen()
-                //hideProgressView()
+                hideProgressView()
             })
 
         configureToolbar()
@@ -55,23 +58,30 @@ class BusinessDetailsFragment : GivolFragment(), GivolToolbar.ActionListener,
     private fun configureScreen() {
         configurePictures()
         configureTexts()
-
     }
 
     private fun configurePictures() {
-
+        GlideApp.with(this).load(business.logo)
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+            .placeholder(R.drawable.background_gray)
+            .into(logoIV)
     }
 
     private fun configureTexts() {
-        tempTxt.text = business.website
+        name.setData(business.name)
+        address.setData(business.address)
+        phone.setData(business.phone)
+        site.setData(business.website)
+        mail.setData(business.email)
+        description.setData(business.description)
     }
 
     override fun showProgressView() {
-        TODO("Not yet implemented")
+        //progressBar.visibility = View.VISIBLE
     }
 
     override fun hideProgressView() {
-        TODO("Not yet implemented")
+        //progressBar.visibility = View.GONE
     }
 
 }

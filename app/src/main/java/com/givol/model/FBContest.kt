@@ -54,14 +54,8 @@ class Prize(
     @PropertyName("value") var value: Int = 0) {}
 
 class Times(
-    @get:PropertyName("date_start") @set:PropertyName("date_start")
-    var dateStartStr: String = "",
-
     @get:PropertyName("date_end") @set:PropertyName("date_end")
     var dateEndStr: String = "",
-
-    @get:PropertyName("time_start") @set:PropertyName("time_start")
-    var timeStart: String = "",
 
     @get:PropertyName("time_end") @set:PropertyName("time_end")
     var timeEnd: String = "",

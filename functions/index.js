@@ -44,4 +44,4 @@ exports.makeUppercase = functions.database.ref('/contests/active')
       return snapshot.ref.parent.child('markTest').set(uppercase);
     });
 
-
+    

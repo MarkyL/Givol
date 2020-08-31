@@ -50,7 +50,7 @@
 
     <!-- Content description -->
     <string name="contest_image_description">תמונת תחרות</string>
-    <string name="contest_began">ההגרלה החלה!</string>
+    <string name="contest_began">ההגרלה החלה !</string>
 
     <!-- Contest details screen -->
     <string name="business_details">פרטי העסק</string>
@@ -68,5 +68,13 @@
     <string name="use_contest_reward_subtitle">האם לממש פרס התחרות?</string>
     <string name="use_contest_reward_positive">מימוש</string>
     <string name="use_contest_reward_negative">עוד לא</string>
+
+    <!-- Business details screen -->
+    <string name="business_name">שם העסק:</string>
+    <string name="business_address">כתובת:</string>
+    <string name="business_phone">טלפון:</string>
+    <string name="business_web">אתר:</string>
+    <string name="business_mail">מייל:</string>
+    <string name="business_description">הסבר:</string>
 
 </resources>

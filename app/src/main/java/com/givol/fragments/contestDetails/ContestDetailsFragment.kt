@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.givol_toolbar.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import java.util.*
 
 //TODO: viewpager with pictures of the business/contest/promotion
 //TODO: toolbar title with business name
@@ -108,10 +109,10 @@ class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, Sup
     }
 
     private fun setCountDownTimer() {
-        countDownTimer = object : CountDownTimer(contest.times.dateEnd.time, 1000) {
+        countDownTimer = object : CountDownTimer(contest.times.dateEnd.time - Date().time, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                val dateWithSeconds = DateTimeHelper.getDateWithSeconds(millisUntilFinished / 1000)
-                timerTv.text = dateWithSeconds
+                val dateWithSeconds = millisUntilFinished / 1000//DateTimeHelper.getDateWithSeconds(millisUntilFinished / 1000)
+                timerTv.text = dateWithSeconds.toString()
             }
 
             override fun onFinish() {

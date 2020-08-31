@@ -11,6 +11,7 @@ import com.google.firebase.database.ValueEventListener
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import timber.log.Timber
+import java.lang.Exception
 
 object ContestsFirebaseManager : KoinComponent {
 
@@ -42,7 +43,7 @@ object ContestsFirebaseManager : KoinComponent {
             override fun onDataChange(snapshot: DataSnapshot) {
                 Timber.i("getFirebaseActiveContestsNodeReference onDataChange - $snapshot")
                 //val sortedContestsByDate = getContestListSortedFromSnapshot(snapshot)
-                contestsLiveData.value = getContestListSortedFromSnapshot(snapshot)//sortedContestsByDate
+                contestsLiveData.value = getContestListSortedFromSnapshot(snapshot)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -54,16 +55,18 @@ object ContestsFirebaseManager : KoinComponent {
     private fun getContestListSortedFromSnapshot(snapshot: DataSnapshot): List<FBContest> {
         val fbContestList = mutableListOf<FBContest>()
         for (childSnapShot in snapshot.children) {
-            val element = childSnapShot.getValue(FBContest::class.java)
-            element?.let {
-                fbContestList.add(element)
+            try {
+                val element = childSnapShot.getValue(FBContest::class.java)
+                element?.let {
+                    fbContestList.add(element)
+                }
+            } catch (e: Exception) {
+                Timber.e("failed to parse childSnapShot with data : {$childSnapShot}")
             }
         }
         Timber.i("fbContestsList = $fbContestList")
 
-        inflateContestListWithDates(
-            fbContestList
-        )
+        inflateContestListWithDates(fbContestList)
         return fbContestList.sortedBy { it.times.dateStart }
     }
 
@@ -81,11 +84,6 @@ object ContestsFirebaseManager : KoinComponent {
 
     private fun inflateContestListWithDates(contestList: MutableList<FBContest>) {
         for (contest in contestList) {
-            val start = contest.times.dateStartStr
-            DateTimeHelper.getDateFormat(start)?.let {
-                contest.times.dateStart = it
-            }
-
             val end = contest.times.dateEndStr
             DateTimeHelper.getDateFormat(end)?.let {
                 contest.times.dateEnd = it

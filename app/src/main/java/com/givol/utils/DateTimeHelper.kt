@@ -1,6 +1,9 @@
 package com.givol.utils
 
 import android.text.format.DateFormat
+import timber.log.Timber
+import java.lang.Exception
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -31,8 +34,13 @@ object DateTimeHelper {
     }
 
     fun getDateFormat(date: String): Date? {
-        val df = SimpleDateFormat(DATE_TIME_PATTERN, Locale.getDefault())
-        return df.parse(date)
+        return try {
+            val df = SimpleDateFormat(DATE_TIME_PATTERN, Locale.getDefault())
+            df.parse(date)
+        } catch (e: ParseException) {
+            Timber.e("unable to parse date $date")
+            null
+        }
     }
 
 }

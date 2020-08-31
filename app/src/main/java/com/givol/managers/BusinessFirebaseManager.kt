@@ -5,6 +5,8 @@ import com.givol.model.FBBusiness
 import com.givol.utils.FirebaseUtils
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseError.OPERATION_FAILED
+import com.google.firebase.database.DatabaseError.fromException
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import org.koin.core.KoinComponent
@@ -28,12 +30,15 @@ object BusinessFirebaseManager : KoinComponent {
         return object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 Timber.i("getFirebaseUsersNodeReference onDataChange - $snapshot")
-                val businessData = snapshot.getValue(FBBusiness::class.java)
-                businessLiveData.value = businessData
+                snapshot.getValue(FBBusiness::class.java)?.let {
+                    businessLiveData.value = it
+                }
+                onCancelled(fromException(Throwable()))
             }
 
             override fun onCancelled(error: DatabaseError) {
                 Timber.e(error.toException(), "Failed to getData from documents")
+                businessLiveData.value = FBBusiness()
             }
         }
     }
