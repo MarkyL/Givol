@@ -33,7 +33,6 @@ object BusinessFirebaseManager : KoinComponent {
                 snapshot.getValue(FBBusiness::class.java)?.let {
                     businessLiveData.value = it
                 }
-                onCancelled(fromException(Throwable()))
             }
 
             override fun onCancelled(error: DatabaseError) {

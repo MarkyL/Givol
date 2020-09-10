@@ -122,11 +122,21 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title2" />
 
+            <com.givol.widgets.HorizontalTextualDataView
+                android:id="@+id/contestIDTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/title3"
+                app:layout_constraintRight_toRightOf="parent"
+                app:title_text="@string/contest_id"
+                android:padding="@dimen/_8sdp"
+                />
+
             <Button
                 android:id="@+id/businessBtn"
                 android:layout_width="@dimen/_150sdp"
                 android:layout_height="@dimen/_24sdp"
-                app:layout_constraintTop_toBottomOf="@id/title3"
+                app:layout_constraintTop_toBottomOf="@id/contestIDTv"
                 app:layout_constraintRight_toRightOf="@id/actionBtn"
                 android:layout_marginTop="@dimen/_24sdp"
                 android:text="@string/business_details"

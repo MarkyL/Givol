@@ -47,6 +47,7 @@
     <string name="amount_title">שווי ההגרלה:</string>
     <string name="contest_winning_state_title">מצב הגרלה:</string>
     <string name="amount_data">%d ₪</string>
+    <string name="no_contests_main_screen">אנחנו עובדים על הגרלות חדשות בשבילכם,\n שווה להתעדכן בקרוב :)</string>
 
     <!-- Content description -->
     <string name="contest_image_description">תמונת תחרות</string>
@@ -56,9 +57,10 @@
     <string name="business_details">פרטי העסק</string>
     <string name="register_to_contest">השתתפות</string>
     <string name="use_contest_reward">מימוש</string>
-    <string name="un_register_to_contest">ביטול השתתפות</string>
+    <string name="already_registered_to_contest">הנך רשום</string>
     <string name="non_eligibility_dialog_title">הרשמה להגרלה נדחתה</string>
     <string name="non_eligibility_dialog_subtitle">כל משתמש זכאי להירשם לעד %d הגרלות בכל רגע.</string>
+    <string name="contest_id">קוד תחרות:</string>
 
     <!-- Finished contests screen -->
     <string name="no_contests_title">אין תחרויות עבר</string>
@@ -76,5 +78,10 @@
     <string name="business_web">אתר:</string>
     <string name="business_mail">מייל:</string>
     <string name="business_description">הסבר:</string>
+
+    <!-- Finished running contest dialog texts -->
+    <string name="finished_run_contest_title">הגרלת תחרויות הסתיימה בהצלחה</string>
+    <string name="finished_run_contest_subtitle">אלו הן התחרויות שהסתיימו על פי מספרן הסידורי: %s</string>
+    <string name="finished_run_contest_positive">מצויין!</string>
 
 </resources>

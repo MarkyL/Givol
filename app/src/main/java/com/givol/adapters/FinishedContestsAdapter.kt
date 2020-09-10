@@ -69,7 +69,7 @@ class FinishedContestItemViewHolder(
                         setPrizeAmountText(true, data)
                         contestStateTextView.dataTv.text = if (it.used) "מימשתי" else "זכיתי"
                     }
-                    CONTEST_WIN_STATE.COLDONSENSE -> {
+                    CONTEST_WIN_STATE.CONSOLATION -> {
                         setPrizeAmountText(false, data)
                         contestStateTextView.dataTv.text = if (it.used) "מימשתי" else "קיבלתי פרס"
                     }

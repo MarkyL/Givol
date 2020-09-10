@@ -21,6 +21,7 @@ import com.givol.utils.Event
 import com.givol.managers.ContestsFirebaseManager
 import com.givol.model.FBUser
 import com.givol.utils.GridSpacingItemDecoration
+import com.givol.utils.observeOnce
 import com.givol.widgets.GivolToolbar
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.ext.android.inject
@@ -61,7 +62,7 @@ class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBac
     }
 
     private fun configureToolbar() {
-        homeToolbar.setTitle(resources.getString(R.string.app_name))
+        homeToolbar.setTitle(resources.getString(R.string.active_contest))
         homeToolbar.addActions(arrayOf(Action.Drawer), this)
     }
 
@@ -75,7 +76,12 @@ class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBac
         showProgressView()
         viewModel.getContests().observe(this, Observer<List<FBContest>> {
             //TODO filter out the lists that i already am participating in.
-            contestsAdapter.submitList(it)
+            if (it.isEmpty()) {
+                emptyStateTV.visibility = View.VISIBLE
+            } else {
+                val filteredList = it.filter { c -> !c.participantsMap.containsKey(transferInfo.uid) }
+                contestsAdapter.submitList(filteredList)
+            }
             hideProgressView()
         })
     }

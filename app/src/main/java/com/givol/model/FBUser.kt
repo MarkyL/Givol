@@ -27,7 +27,7 @@ class UserContest(
             return when (contestState) {
                 CONTEST_WIN_STATE.NONE.name -> CONTEST_WIN_STATE.NONE
                 CONTEST_WIN_STATE.WIN.name -> CONTEST_WIN_STATE.WIN
-                CONTEST_WIN_STATE.COLDONSENSE.name -> CONTEST_WIN_STATE.COLDONSENSE
+                CONTEST_WIN_STATE.CONSOLATION.name -> CONTEST_WIN_STATE.CONSOLATION
                 else -> CONTEST_WIN_STATE.NONE
             }
         }

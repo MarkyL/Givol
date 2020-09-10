@@ -10,9 +10,10 @@
 <!--            android:title="@string/active_contest" />-->
 
         <item
-            android:id="@+id/navTest"
+            android:id="@+id/navRunContests"
             android:icon="@drawable/ic_web_black_24dp"
-            android:title="הרצת בדיקת סוף תחרות" />
+            android:visible="false"
+            android:title="הרצת תחרויות" />
 
         <item
             android:id="@+id/navFinishedContest"

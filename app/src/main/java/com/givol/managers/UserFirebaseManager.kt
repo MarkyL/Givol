@@ -75,9 +75,6 @@ object UserFirebaseManager : KoinComponent {
     fun moveActiveToFinished(uid: String, fbContest: FBContest) {
         fbUtil.getUserActiveContestNodeReference(uid).child(fbContest.contestID).removeValue()
         fbUtil.getUserFinishedContestNodeReference(uid).child(fbContest.contestID).setValue(fbContest)
-
-        fbUtil.getFirebaseActiveContestsNodeReference().child(fbContest.contestID).removeValue()
-        fbUtil.getFirebaseFinishedContestsNodeReference().child(fbContest.contestID).setValue(fbContest)
     }
 
     //endregion

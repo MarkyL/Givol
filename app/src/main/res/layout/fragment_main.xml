@@ -40,4 +40,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.givol.widgets.GivolTextView
+        android:id="@+id/emptyStateTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/homeToolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="@dimen/min_margin"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/no_contests_main_screen"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

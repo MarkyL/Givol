@@ -19,7 +19,6 @@ import com.givol.model.FBUser
 import com.givol.model.User.Companion.MAX_CONTESTS_REGISTRATION
 import com.givol.navigation.arguments.TransferInfo
 import com.givol.screens.BusinessDetailsScreen
-import com.givol.utils.DateTimeHelper
 import com.givol.utils.GlideApp
 import com.givol.widgets.GivolToolbar
 import kotlinx.android.synthetic.main.fragment_contest_details.*
@@ -101,6 +100,8 @@ class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, Sup
             title2.setTexts(titleTwo, descriptionTwo)
             title3.setTexts(titleThree, descriptionThree)
         }
+
+        contestIDTv.setData(contest.contestID)
     }
 
     override fun onResume() {
@@ -142,25 +143,16 @@ class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, Sup
 
     private fun setUserIsRegistered() {
         toggleUserRegistrationState(true)
-        actionBtn.text = resources.getString(R.string.un_register_to_contest)
+        actionBtn.text = resources.getString(R.string.already_registered_to_contest)
+        actionBtn.isEnabled = false
     }
 
     //endregion
 
     private fun onActionBtnClicked() {
-        if (isUserRegistered) {
-            performUnRegistrationFlow()
-        } else {
+        if (!isUserRegistered) {
             performRegistrationFlow()
         }
-    }
-
-    private fun performUnRegistrationFlow() {
-        actionBtn.text = resources.getString(R.string.register_to_contest)
-        viewModel.unregisterFromContest(transferInfo.uid, transferInfo.contest.contestID)
-        toggleUserRegistrationState(false)
-
-        getUserData()
     }
 
     private fun getUserData() {
@@ -172,7 +164,7 @@ class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, Sup
     private fun performRegistrationFlow() {
         // Check if user is eligible to register to a contest
         if (checkRegistrationEligibility()) {
-            actionBtn.text = resources.getString(R.string.un_register_to_contest)
+            actionBtn.text = resources.getString(R.string.already_registered_to_contest)
             viewModel.registerToContest(transferInfo.uid, transferInfo.contest)
             toggleUserRegistrationState(true)
             getUserData()

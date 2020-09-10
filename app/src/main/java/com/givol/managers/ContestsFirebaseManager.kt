@@ -1,6 +1,7 @@
 package com.givol.managers
 
 import androidx.lifecycle.MutableLiveData
+import com.givol.model.CONTEST_WIN_STATE
 import com.givol.model.FBContest
 import com.givol.utils.DateTimeHelper
 import com.givol.utils.FirebaseUtils
@@ -11,7 +12,6 @@ import com.google.firebase.database.ValueEventListener
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import timber.log.Timber
-import java.lang.Exception
 
 object ContestsFirebaseManager : KoinComponent {
 
@@ -100,15 +100,23 @@ object ContestsFirebaseManager : KoinComponent {
     }
 
     fun addSingleFinishedContestListenerByID(contestId: String) {
-        finishedContestsReference.child(contestId).addListenerForSingleValueEvent(finishedContestListener)
+        finishedContestsReference.child(contestId)
+            .addListenerForSingleValueEvent(finishedContestListener)
     }
 
     fun useContestReward(uid: String, fbContest: FBContest) {
         // Update user's contest to value - used = true.
-        fbUtil.getUserFinishedContestNodeReference(uid).child(fbContest.contestID).setValue(fbContest)
+        fbUtil.getUserFinishedContestNodeReference(uid).child(fbContest.contestID)
+            .setValue(fbContest)
 
         finishedContestsReference.child(fbContest.contestID).child("participants")
             .child(uid).child("used").setValue(true)
+    }
+
+    fun moveActiveToFinished(fbContest: FBContest) {
+        fbUtil.getFirebaseActiveContestsNodeReference().child(fbContest.contestID).removeValue()
+        fbUtil.getFirebaseFinishedContestsNodeReference().child(fbContest.contestID)
+            .setValue(fbContest)
     }
 
     //endregion
