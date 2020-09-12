@@ -2,10 +2,12 @@ package com.givol.fragments.contestDetails
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.givol.R
 import com.givol.adapters.PicturesAdapter
@@ -74,6 +76,17 @@ class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, Sup
     private fun configurePictures() {
         picturesAdapter = PicturesAdapter()
         viewPager.adapter = picturesAdapter
+        viewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {}
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
+            override fun onPageSelected(position: Int) {
+                viewPagerIndicator.setSelected(position)
+            }
+
+        })
+
         picturesAdapter.setItems(contest.details.pictures)
 
         GlideApp.with(this).load(contest.logo)

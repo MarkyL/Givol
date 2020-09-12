@@ -168,7 +168,7 @@ class SignInFragment: GivolFragment() {
         //Email
         dbReference.child(fbUtil.PARAM_EMAIL).setValue(user.email)
     }
- F
+
     private fun onNoAccountBtnClick() {
         adjustScreenToSignUpFlow()
     }
