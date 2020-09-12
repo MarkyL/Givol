@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/grey_3"
     android:orientation="vertical"
+    android:gravity="right"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.givol.widgets.GivolToolbar

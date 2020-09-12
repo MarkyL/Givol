@@ -51,7 +51,7 @@
 
     <!-- Content description -->
     <string name="contest_image_description">תמונת תחרות</string>
-    <string name="contest_began">ההגרלה החלה !</string>
+    <string name="contest_began">ההגרלה בתהליך…</string>
 
     <!-- Contest details screen -->
     <string name="business_details">פרטי העסק</string>

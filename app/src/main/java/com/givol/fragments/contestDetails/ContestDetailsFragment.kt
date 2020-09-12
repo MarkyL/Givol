@@ -29,14 +29,6 @@ import timber.log.Timber
 import java.util.*
 
 //TODO: viewpager with pictures of the business/contest/promotion
-//TODO: toolbar title with business name
-//TODO: screen should be scrollable to show all data
-//TODO: form all the required data about the business
-//TODO: form all the required data about the contest
-//TODO: participate button with logic - show "register" if not registered, and "unregister" if already registered.
-//TODO: if user has reached max amount of contests (should be const, currently #3) - disable the button.
-//TODO: suggestion: show a dialog explaining why the button is disabled (?)
-
 class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBackPressed {
 
     private val viewModel by viewModel<ContestDetailsViewModel>()

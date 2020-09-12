@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.givol.R
-import kotlinx.android.synthetic.main.horizontal_textual_data_layout.view.*
+import kotlinx.android.synthetic.main.vertical_textual_data_layout.view.*
 
 class VerticalTextualDataView : ConstraintLayout {
 

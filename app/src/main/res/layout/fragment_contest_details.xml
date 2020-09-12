@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@android:color/white">
 
     <com.givol.widgets.GivolToolbar
@@ -24,8 +24,8 @@
         android:scrollbarSize="4dp"
         android:scrollbarThumbVertical="@color/gray_light"
         android:verticalScrollbarPosition="right"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/scrollViewLayout"
@@ -65,14 +65,14 @@
 
             <Button
                 android:id="@+id/actionBtn"
-                android:layout_width="@dimen/_150sdp"
+                android:layout_width="@dimen/_120sdp"
                 android:layout_height="@dimen/_32sdp"
-                app:layout_constraintBaseline_toBaselineOf="@id/amountTv"
-                app:layout_constraintRight_toRightOf="@id/viewPager"
                 android:layout_marginRight="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_16sdp"
+                android:textSize="@dimen/_12sdp"
                 android:text="@string/register_to_contest"
-                />
+                app:layout_constraintTop_toTopOf="@id/amountTv"
+                app:layout_constraintBottom_toBottomOf="@id/amountTv"
+                app:layout_constraintRight_toRightOf="@id/viewPager" />
 
             <com.givol.widgets.GivolTextView
                 android:id="@+id/timerTv"
@@ -81,8 +81,8 @@
                 android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginRight="@dimen/_16sdp"
                 android:textColor="@color/colorPrimaryDark"
+                android:textDirection="rtl"
                 android:textSize="@dimen/_16sdp"
-                android:textDirection="ltr"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/actionBtn"
                 tools:text="12:30:24" />
@@ -96,51 +96,84 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/participantsTv" />
 
-            <com.givol.widgets.VerticalTextualDataView
-                android:id="@+id/title1"
-                android:layout_width="0dp"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/titleOne"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:background="@drawable/background_gray"
+                android:elevation="@dimen/_8sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/logoIv" />
+                app:layout_constraintTop_toBottomOf="@id/logoIv">
 
-            <com.givol.widgets.VerticalTextualDataView
-                android:id="@+id/title2"
-                android:layout_width="0dp"
+                <com.givol.widgets.VerticalTextualDataView
+                    android:id="@+id/title1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/titleTwo"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:background="@drawable/background_gray"
+                android:elevation="@dimen/_8sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/titleOne">
+
+                <com.givol.widgets.VerticalTextualDataView
+                    android:id="@+id/title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/titleThree"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
+                android:background="@drawable/background_gray"
+                android:elevation="@dimen/_8sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_24sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title1" />
+                app:layout_constraintTop_toBottomOf="@id/titleTwo">
 
-            <com.givol.widgets.VerticalTextualDataView
-                android:id="@+id/title3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_24sdp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title2" />
+                <com.givol.widgets.VerticalTextualDataView
+                    android:id="@+id/title3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.card.MaterialCardView>
 
             <com.givol.widgets.HorizontalTextualDataView
                 android:id="@+id/contestIDTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/title3"
-                app:layout_constraintRight_toRightOf="parent"
-                app:title_text="@string/contest_id"
                 android:padding="@dimen/_8sdp"
-                />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/titleThree"
+                app:title_text="@string/contest_id" />
 
             <Button
                 android:id="@+id/businessBtn"
-                android:layout_width="@dimen/_150sdp"
+                android:layout_width="@dimen/_100sdp"
                 android:layout_height="@dimen/_24sdp"
-                app:layout_constraintTop_toBottomOf="@id/contestIDTv"
-                app:layout_constraintRight_toRightOf="@id/actionBtn"
                 android:layout_marginTop="@dimen/_24sdp"
+                android:textSize="@dimen/_12sdp"
                 android:text="@string/business_details"
-                />
+                app:layout_constraintRight_toRightOf="@id/actionBtn"
+                app:layout_constraintTop_toBottomOf="@id/contestIDTv" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
