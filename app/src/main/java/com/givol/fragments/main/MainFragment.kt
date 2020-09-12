@@ -20,6 +20,7 @@ import com.givol.screens.ContestDetailsScreen
 import com.givol.utils.Event
 import com.givol.managers.ContestsFirebaseManager
 import com.givol.model.FBUser
+import com.givol.screens.SignInScreen
 import com.givol.utils.GridSpacingItemDecoration
 import com.givol.utils.observeOnce
 import com.givol.widgets.GivolToolbar
@@ -87,8 +88,15 @@ class MainFragment : GivolFragment(), GivolToolbar.ActionListener, SupportsOnBac
     }
 
     private fun getUserData() {
-        viewModel.getUserData(transferInfo.uid).observe(viewLifecycleOwner, Observer<FBUser> {
-            transferInfo.user = it
+        viewModel.getUserData(transferInfo.uid).observe(viewLifecycleOwner, Observer<FBUser?> {
+            it?.let {
+                transferInfo.user = it
+            } ?: run {
+                Timber.e("was unable to get user data, fall back to signin screen")
+                val transferInfo = TransferInfo()
+                transferInfo.flow = TransferInfo.Flow.SignIn
+                navigator.replace(SignInScreen(transferInfo))
+            }
         })
     }
 

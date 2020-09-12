@@ -162,21 +162,13 @@ class SignInFragment: GivolFragment() {
     }
 
     private fun initUserDefaultData(user: FirebaseUser) {
-        Timber.i("mark test")
+        Timber.i("initUserDefaultData with $user")
         val dbReference = fbUtil.getFirebaseUserNodeReference(user.uid)
 
         //Email
         dbReference.child(fbUtil.PARAM_EMAIL).setValue(user.email)
-
-        //Contests
-//        val contestDbRef = dbReference.child(fbUtil.PARAM_CONTEST)
-//        val emptyList = listOf("1","2","3")
-//        contestDbRef.child(fbUtil.PARAM_ACTIVE_CONTEST).setValue(emptyList)
-//        contestDbRef.child(fbUtil.PARAM_WON_CONTEST).setValue(emptyList)
-//        contestDbRef.child(fbUtil.PARAM_FINISHED_CONTEST).setValue(emptyList)
-        Timber.i("mark test2")
     }
-
+ F
     private fun onNoAccountBtnClick() {
         adjustScreenToSignUpFlow()
     }

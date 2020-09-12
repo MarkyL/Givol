@@ -20,7 +20,7 @@ class FinishedContestsViewModel constructor(
         Timber.i("dispatchScreenEvent: ${event.javaClass.simpleName}")
     }
 
-    fun getUserFinishedContests(uid: String): MutableLiveData<FBUser> {
+    fun getUserFinishedContests(uid: String): MutableLiveData<FBUser?> {
         userManager.addSingleContestListener(uid)
         return userManager.userLiveData
     }

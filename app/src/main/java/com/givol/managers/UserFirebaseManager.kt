@@ -18,7 +18,7 @@ object UserFirebaseManager : KoinComponent {
     private val fbUtil: FirebaseUtils by inject()
 
     // Users
-    val userLiveData = MutableLiveData<FBUser>()
+    val userLiveData = MutableLiveData<FBUser?>()
     private val userListener: ValueEventListener
     private val usersReference: DatabaseReference
 

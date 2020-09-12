@@ -28,7 +28,7 @@ class MainViewModel constructor(
         return contestManager.contestsLiveData
     }
 
-    fun getUserData(uid: String): MutableLiveData<FBUser> {
+    fun getUserData(uid: String): MutableLiveData<FBUser?> {
         userManager.addSingleContestListener(uid)
         return userManager.userLiveData
     }

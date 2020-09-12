@@ -148,8 +148,10 @@ class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, Sup
     }
 
     private fun getUserData() {
-        mainViewModel.getUserData(transferInfo.uid).observe(viewLifecycleOwner, Observer<FBUser> {
-            transferInfo.user = it
+        mainViewModel.getUserData(transferInfo.uid).observe(viewLifecycleOwner, Observer {
+            it?.let {
+                transferInfo.user = it
+            }
         })
     }
 

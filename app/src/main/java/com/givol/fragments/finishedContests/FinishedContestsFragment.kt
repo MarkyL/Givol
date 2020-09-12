@@ -78,9 +78,11 @@ class FinishedContestsFragment : GivolFragment(), GivolToolbar.ActionListener,
     private fun getFinishedContests() {
         showProgressView()
         viewModel.getUserFinishedContests(transferInfo.uid)
-            .observe(viewLifecycleOwner, Observer<FBUser> {
-                hideProgressView()
-                onUserDataFetched(it)
+            .observe(viewLifecycleOwner, Observer<FBUser?> {
+                it?.let {
+                    hideProgressView()
+                    onUserDataFetched(it)
+                }
             })
     }
 
