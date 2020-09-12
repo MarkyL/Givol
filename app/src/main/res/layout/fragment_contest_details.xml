@@ -158,9 +158,10 @@
 
             <com.givol.widgets.HorizontalTextualDataView
                 android:id="@+id/contestIDTv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_8sdp"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_8sdp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/titleThree"
                 app:title_text="@string/contest_id" />

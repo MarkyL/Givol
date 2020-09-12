@@ -36,7 +36,7 @@
 
         <com.givol.widgets.HorizontalTextualDataView
             android:id="@+id/participantsTextualView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/title"
             android:textDirection="rtl"
@@ -46,7 +46,7 @@
 
         <com.givol.widgets.HorizontalTextualDataView
             android:id="@+id/dueDateTextualView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textDirection="rtl"
@@ -56,7 +56,7 @@
 
         <com.givol.widgets.HorizontalTextualDataView
             android:id="@+id/amountTextualView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textDirection="rtl"
