@@ -7,6 +7,10 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: 'com.google.gms.google-services'
 
+apply plugin: 'com.google.firebase.crashlytics'
+
+ext.buildNumber = 1
+
 android {
     compileSdkVersion 30
 
@@ -16,7 +20,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        setProperty("archivesBaseName", "$versionName-$buildNumber")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -24,6 +28,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            versionNameSuffix "-${buildNumber}"
         }
     }
 
@@ -79,6 +87,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:17.5.0'
     implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
     implementation 'com.google.firebase:firebase-database-ktx:19.3.1'
+    // Recommended: Add the Firebase SDK for Google Analytics.
+    implementation 'com.google.firebase:firebase-analytics-ktx:17.5.0'
+    // Add the Firebase Crashlytics SDK.
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:17.2.1'
 
     //Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'

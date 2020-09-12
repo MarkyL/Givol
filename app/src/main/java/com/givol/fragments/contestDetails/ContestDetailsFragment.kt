@@ -104,7 +104,7 @@ class ContestDetailsFragment : GivolFragment(), GivolToolbar.ActionListener, Sup
     private fun setCountDownTimer() {
         countDownTimer = object : CountDownTimer(contest.times.dateEnd.time - Date().time, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                val dateWithSeconds = millisUntilFinished / 1000//DateTimeHelper.getDateWithSeconds(millisUntilFinished / 1000)
+                val dateWithSeconds = millisUntilFinished / 1000
                 timerTv.text = dateWithSeconds.toString()
             }
 

@@ -47,7 +47,7 @@
                 android:layout_marginLeft="@dimen/_16sdp"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:textColor="@color/colorGreen"
-                android:textSize="@dimen/_28sdp"
+                android:textSize="@dimen/_20sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/viewPager"
                 tools:text="55$" />
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/_22sdp"
+                android:textSize="@dimen/_18sdp"
                 app:layout_constraintLeft_toLeftOf="@id/amountTv"
                 app:layout_constraintTop_toBottomOf="@id/amountTv"
                 tools:text="30/50" />
