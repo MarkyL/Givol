@@ -20,7 +20,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-        setProperty("archivesBaseName", "$versionName-$buildNumber")
+        setProperty("archivesBaseName", "GivolApp-$versionName-$buildNumber")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
