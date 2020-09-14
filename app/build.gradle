@@ -9,7 +9,7 @@ apply plugin: 'com.google.gms.google-services'
 
 apply plugin: 'com.google.firebase.crashlytics'
 
-ext.buildNumber = 3
+ext.buildNumber = 4
 
 android {
     compileSdkVersion 30
